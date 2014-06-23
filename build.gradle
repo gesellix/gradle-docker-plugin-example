@@ -1,0 +1,26 @@
+import de.gesellix.gradle.docker.tasks.DockerBuildTask
+
+buildscript {
+  repositories {
+    mavenLocal()
+    maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'de.gesellix:gradle-docker-plugin:2014-06-23T21-12-54'
+  }
+}
+
+apply plugin: 'docker'
+
+task buildImage(type: DockerBuildTask) {
+  dockerHost = "http://172.17.42.1:4243/"
+  imageName = "gesellix/example"
+  buildContextDirectory = file('./docker/')
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.0-rc-2'
+  distributionUrl = 'http://services.gradle.org/distributions/gradle-2.0-rc-2-all.zip'
+}
