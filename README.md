@@ -1,4 +1,4 @@
-# gradle-docker-plugin-example
+# Gradle-Docker-Plugin example
 
 [![Gradle logo](img/gradle-logo.png)](http://www.gradle.org/)
 [![Docker logo](img/docker-logo.png)](http://www.docker.com/)
