@@ -9,7 +9,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'de.gesellix:gradle-docker-plugin:2014-06-25T23-00-20'
+    classpath 'de.gesellix:gradle-docker-plugin:2014-06-28T12-22-09'
   }
 }
 
@@ -28,6 +28,7 @@ task pushImage(type: DockerPushTask) {
   dependsOn buildImage
 
   repositoryName = "gesellix/example"
+  registry = "localhost:5000"
   authConfigPlain = ["username"     : "gesellix",
                      "password"     : "-yet-another-password-",
                      "email"        : "tobias@gesellix.de",
