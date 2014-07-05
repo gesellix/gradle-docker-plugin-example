@@ -11,11 +11,11 @@ buildscript {
   }
 
   dependencies {
-    classpath 'de.gesellix:gradle-docker-plugin:2014-07-05T23-05-01'
+    classpath 'de.gesellix:gradle-docker-plugin:2014-07-05T23-33-50'
   }
 }
 
-apply plugin: 'docker'
+apply plugin: 'de.gesellix.docker'
 apply plugin: 'groovy'
 
 repositories {
