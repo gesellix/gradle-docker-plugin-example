@@ -1,5 +1,10 @@
 import de.gesellix.gradle.docker.tasks.DockerBuildTask
+import de.gesellix.gradle.docker.tasks.DockerPsTask
+import de.gesellix.gradle.docker.tasks.DockerPullTask
 import de.gesellix.gradle.docker.tasks.DockerPushTask
+
+import static groovy.json.JsonOutput.prettyPrint
+import static groovy.json.JsonOutput.toJson
 
 buildscript {
   repositories {
@@ -9,7 +14,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'de.gesellix:gradle-docker-plugin:2014-07-05T10-32-56'
+    classpath 'de.gesellix:gradle-docker-plugin:2014-07-05T19-53-25'
   }
 }
 
@@ -42,11 +47,13 @@ task pushImage(type: DockerPushTask) {
   registry = "localhost:5000"
 }
 
-//task pullImageOnRemoteServer(type: DockerPullTask) {
-//  dockerHost = "http://172.17.42.1:4243/"
-//  imageName = "gesellix/example"
-////  registry = "localhost:5000"
-//}
+task pullImageOnRemoteServer(type: DockerPullTask) {
+  dependsOn pushImage
+
+  dockerHost = "http://172.17.42.1:4243/"
+  imageName = "gesellix/example"
+  registry = "localhost:5000"
+}
 
 //task stopContainerOnRemoteServer(type: DockerStopTask) {
 //  dockerHost = "http://172.17.42.1:4243/"
@@ -62,13 +69,17 @@ task pushImage(type: DockerPushTask) {
 //  dockerHost = "http://172.17.42.1:4243/"
 //  imageName = "foo"
 //  containerName = "bar"
-//  containerConfiguration = ["Ports": ["8889", "9300"]]
+//  containerConfiguration = ["ExposedPorts": ["8889/tcp": {}, "9300/tcp": {}]]
 //  // todo configure portmapping
 //}
 
-//task listContainersOnRemoteServer(type: DockerPsTask) {
-//  dockerHost = "http://172.17.42.1:4243/"
-//}
+task listContainersOnRemoteServer(type: DockerPsTask) {
+  dockerHost = "http://172.17.42.1:4243/"
+
+  doLast {
+    println prettyPrint(toJson(containers))
+  }
+}
 
 task wrapper(type: Wrapper) {
   gradleVersion = '2.0'
