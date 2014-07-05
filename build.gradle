@@ -9,14 +9,25 @@ buildscript {
   }
 
   dependencies {
-    classpath 'de.gesellix:gradle-docker-plugin:2014-07-04T21-05-42'
+    classpath 'de.gesellix:gradle-docker-plugin:2014-07-05T10-32-56'
   }
 }
 
 apply plugin: 'docker'
+apply plugin: 'groovy'
+
+repositories {
+  mavenLocal()
+  maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
+  mavenCentral()
+}
 
 docker {
   dockerHost = "http://172.17.42.1:4243/"
+  authConfigPlain = ["username"     : "gesellix",
+                     "password"     : "-yet-another-password-",
+                     "email"        : "tobias@gesellix.de",
+                     "serveraddress": "https://index.docker.io/v1/"]
 }
 
 task buildImage(type: DockerBuildTask) {
@@ -29,11 +40,35 @@ task pushImage(type: DockerPushTask) {
 
   repositoryName = "gesellix/example"
   registry = "localhost:5000"
-  authConfigPlain = ["username"     : "gesellix",
-                     "password"     : "-yet-another-password-",
-                     "email"        : "tobias@gesellix.de",
-                     "serveraddress": "https://index.docker.io/v1/"]
 }
+
+//task pullImageOnRemoteServer(type: DockerPullTask) {
+//  dockerHost = "http://172.17.42.1:4243/"
+//  imageName = "gesellix/example"
+////  registry = "localhost:5000"
+//}
+
+//task stopContainerOnRemoteServer(type: DockerStopTask) {
+//  dockerHost = "http://172.17.42.1:4243/"
+//  containerId = "foo"
+//}
+
+//task rmContainerOnRemoteServer(type: DockerRmTask) {
+//  dockerHost = "http://172.17.42.1:4243/"
+//  containerId = "foo"
+//}
+
+//task runContainerOnRemoteServer(type: DockerRunTask) {
+//  dockerHost = "http://172.17.42.1:4243/"
+//  imageName = "foo"
+//  containerName = "bar"
+//  containerConfiguration = ["Ports": ["8889", "9300"]]
+//  // todo configure portmapping
+//}
+
+//task listContainersOnRemoteServer(type: DockerPsTask) {
+//  dockerHost = "http://172.17.42.1:4243/"
+//}
 
 task wrapper(type: Wrapper) {
   gradleVersion = '2.0'
