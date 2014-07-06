@@ -11,7 +11,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'de.gesellix:gradle-docker-plugin:2014-07-06T00-01-08'
+    classpath 'de.gesellix:gradle-docker-plugin:2014-07-07T00-32-53'
   }
 }
 
@@ -52,19 +52,22 @@ task pullImageOnRemoteServer(type: DockerPullTask) {
   registry = "localhost:5000"
 }
 
-//task stopContainerOnRemoteServer(type: DockerStopTask) {
-//  dockerHost = "http://172.17.42.1:4243/"
-//  containerId = "a_unique_name"
-//}
+task stopContainerOnRemoteServer(type: DockerStopTask) {
+  dependsOn pullImageOnRemoteServer
 
-//task rmOldContainerOnRemoteServer(type: DockerRmTask) {
-//  dockerHost = "http://172.17.42.1:4243/"
-//  containerId = "a_unique_name"
-//}
+  dockerHost = "http://172.17.42.1:4243/"
+  containerId = "a_unique_name"
+}
+
+task rmOldContainerOnRemoteServer(type: DockerRmTask) {
+  dependsOn stopContainerOnRemoteServer
+
+  dockerHost = "http://172.17.42.1:4243/"
+  containerId = "a_unique_name"
+}
 
 task runContainerOnRemoteServer(type: DockerRunTask) {
-  dependsOn pullImageOnRemoteServer
-//  dependsOn rmOldContainerOnRemoteServer
+  dependsOn rmOldContainerOnRemoteServer
 
   dockerHost = "http://172.17.42.1:4243/"
   imageName = "localhost:5000/gesellix/example"
