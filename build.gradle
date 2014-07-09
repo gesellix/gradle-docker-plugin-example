@@ -11,13 +11,14 @@ buildscript {
   }
 
   dependencies {
-    classpath 'de.gesellix:gradle-docker-plugin:2014-07-07T00-32-53'
+    classpath 'de.gesellix:gradle-docker-plugin:2014-07-09T21-05-16'
   }
 }
 
 apply plugin: 'de.gesellix.docker'
-apply plugin: 'groovy'
 
+// only to help IntelliJ recognize the imports for the Docker*Task classes
+apply plugin: 'groovy'
 repositories {
   mavenLocal()
   maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
