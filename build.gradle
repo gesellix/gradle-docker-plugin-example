@@ -11,7 +11,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'de.gesellix:gradle-docker-plugin:2014-07-22T18-50-17'
+    classpath 'de.gesellix:gradle-docker-plugin:2014-07-24T08-17-45'
   }
 }
 
