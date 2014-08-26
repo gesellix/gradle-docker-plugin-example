@@ -3,19 +3,10 @@ import de.gesellix.gradle.docker.tasks.*
 import static groovy.json.JsonOutput.prettyPrint
 import static groovy.json.JsonOutput.toJson
 
-buildscript {
-  repositories {
-    mavenLocal()
-    maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
-    mavenCentral()
-  }
-
-  dependencies {
-    classpath 'de.gesellix:gradle-docker-plugin:2014-08-19T21-32-38'
-  }
+// works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
+plugins {
+  id "de.gesellix.docker" version "2014-08-26T06-00-52"
 }
-
-apply plugin: 'de.gesellix.docker'
 
 // only to help IntelliJ recognize the imports for the Docker*Task classes
 apply plugin: 'groovy'
@@ -88,6 +79,6 @@ task listContainersOnRemoteServer(type: DockerPsTask) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.0'
+  gradleVersion = '2.1-rc-1'
   distributionUrl = "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
