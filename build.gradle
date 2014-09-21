@@ -3,9 +3,15 @@ import de.gesellix.gradle.docker.tasks.*
 import static groovy.json.JsonOutput.prettyPrint
 import static groovy.json.JsonOutput.toJson
 
+buildscript {
+  repositories {
+    maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
+  }
+}
+
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id "de.gesellix.docker" version "2014-09-11T19-08-19"
+  id "de.gesellix.docker" version "2014-09-21T09-24-21"
 }
 
 // only to help IntelliJ recognize the imports for the Docker*Task classes
@@ -16,8 +22,13 @@ repositories {
   mavenCentral()
 }
 
+ext {
+  localDockerHost = System.env.DOCKER_HOST.replaceAll("^tcp://", "http://")
+  remoteDockerHost = "http://172.17.42.1:2375/"
+}
+
 docker {
-  dockerHost = "http://172.17.42.1:4243/"
+  dockerHost = localDockerHost
   authConfigPlain = ["username"     : "gesellix",
                      "password"     : "-yet-another-password-",
                      "email"        : "tobias@gesellix.de",
@@ -39,7 +50,7 @@ task pushImage(type: DockerPushTask) {
 task pullImageOnRemoteServer(type: DockerPullTask) {
   dependsOn pushImage
 
-  dockerHost = "http://172.17.42.1:4243/"
+  dockerHost = remoteDockerHost
   imageName = "gesellix/example"
   registry = "localhost:5000"
 }
@@ -47,21 +58,21 @@ task pullImageOnRemoteServer(type: DockerPullTask) {
 task stopContainerOnRemoteServer(type: DockerStopTask) {
   dependsOn pullImageOnRemoteServer
 
-  dockerHost = "http://172.17.42.1:4243/"
+  dockerHost = remoteDockerHost
   containerId = "a_unique_name"
 }
 
 task rmOldContainerOnRemoteServer(type: DockerRmTask) {
   dependsOn stopContainerOnRemoteServer
 
-  dockerHost = "http://172.17.42.1:4243/"
+  dockerHost = remoteDockerHost
   containerId = "a_unique_name"
 }
 
 task runContainerOnRemoteServer(type: DockerRunTask) {
   dependsOn rmOldContainerOnRemoteServer
 
-  dockerHost = "http://172.17.42.1:4243/"
+  dockerHost = remoteDockerHost
   imageName = "localhost:5000/gesellix/example"
   containerName = "a_unique_name"
   containerConfiguration = [
@@ -71,7 +82,7 @@ task runContainerOnRemoteServer(type: DockerRunTask) {
 }
 
 task listContainersOnRemoteServer(type: DockerPsTask) {
-  dockerHost = "http://172.17.42.1:4243/"
+  dockerHost = remoteDockerHost
 
   doLast {
     println prettyPrint(toJson(containers))
