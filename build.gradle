@@ -3,15 +3,10 @@ import de.gesellix.gradle.docker.tasks.*
 import static groovy.json.JsonOutput.prettyPrint
 import static groovy.json.JsonOutput.toJson
 
-buildscript {
-  repositories {
-    jcenter()
-  }
-  dependencies {
-    classpath "de.gesellix:gradle-docker-plugin:2014-09-26T19-39-00"
-  }
+// works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
+plugins {
+  id "de.gesellix.docker" version "2014-09-26T19-39-00"
 }
-apply plugin: "de.gesellix.docker"
 
 // only to help IntelliJ recognize the imports for the Docker*Task classes
 apply plugin: 'groovy'
