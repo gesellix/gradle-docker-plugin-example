@@ -7,3 +7,8 @@ Example project showing some use cases of the [gradle-docker-plugin](https://git
 
 See the [build.gradle](https://github.com/gesellix-docker/gradle-docker-plugin-example/blob/master/build.gradle) file in the
 project root for detailed task configuration. Most configuration parameters are optional.
+
+The root project only contains the most trivial tasks `info` and `version`. More advanced use cases can be found in the subprojects:
+
+* **build-and-run-locally** shows a simple use case with an image being build and run as a container locally.
+* **build-push-and-run-remotely** shows a more advanced use case including a private registry.

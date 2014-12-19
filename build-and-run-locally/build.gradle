@@ -1,0 +1,27 @@
+import de.gesellix.gradle.docker.tasks.*
+
+task rmImage(type: DockerRmiTask) {
+  imageId = "foo"
+}
+
+task buildImage(type: DockerBuildTask) {
+  dependsOn rmImage
+  imageName = "foo"
+  buildContextDirectory = file("./docker/")
+}
+
+task stopContainer(type: DockerStopTask) {
+  dependsOn buildImage
+  containerId = "foo"
+}
+
+task rmContainer(type: DockerRmTask) {
+  dependsOn stopContainer
+  containerId = "foo"
+}
+
+task runContainer(type: DockerRunTask) {
+  dependsOn rmContainer
+  imageName = "foo"
+  containerName = "foo"
+}

@@ -1,0 +1,58 @@
+import de.gesellix.gradle.docker.tasks.*
+
+import static groovy.json.JsonOutput.prettyPrint
+import static groovy.json.JsonOutput.toJson
+
+task buildImage(type: DockerBuildTask) {
+  imageName = "gesellix/example"
+  buildContextDirectory = file('./docker/')
+}
+
+task pushImage(type: DockerPushTask) {
+  dependsOn buildImage
+
+  repositoryName = "gesellix/example"
+  registry = "localhost:5000"
+}
+
+task pullImageOnRemoteServer(type: DockerPullTask) {
+  dependsOn pushImage
+
+  dockerHost = remoteDockerHost
+  imageName = "gesellix/example"
+  registry = "localhost:5000"
+}
+
+task stopContainerOnRemoteServer(type: DockerStopTask) {
+  dependsOn pullImageOnRemoteServer
+
+  dockerHost = remoteDockerHost
+  containerId = "a_unique_name"
+}
+
+task rmOldContainerOnRemoteServer(type: DockerRmTask) {
+  dependsOn stopContainerOnRemoteServer
+
+  dockerHost = remoteDockerHost
+  containerId = "a_unique_name"
+}
+
+task runContainerOnRemoteServer(type: DockerRunTask) {
+  dependsOn rmOldContainerOnRemoteServer
+
+  dockerHost = remoteDockerHost
+  imageName = "localhost:5000/gesellix/example"
+  containerName = "a_unique_name"
+  containerConfiguration = [
+      "ExposedPorts": ["8889/tcp": [:], "9300/tcp": [:]]]
+  hostConfiguration = [
+      "PortBindings": ["8889/tcp": [["HostPort": "8889"]]]]
+}
+
+task listContainersOnRemoteServer(type: DockerPsTask) {
+  dockerHost = remoteDockerHost
+
+  doLast {
+    println prettyPrint(toJson(containers))
+  }
+}

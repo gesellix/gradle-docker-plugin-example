@@ -5,7 +5,7 @@ import static groovy.json.JsonOutput.toJson
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id "de.gesellix.docker" version "2014-11-06T22-56-08"
+  id "de.gesellix.docker" version "2014-12-19T09-21-03"
 }
 
 // only to help IntelliJ recognize the imports for the Docker*Task classes
@@ -21,65 +21,27 @@ ext {
   remoteDockerHost = "http://172.17.42.1:2375/"
 }
 
-docker {
-  dockerHost = localDockerHost
-  authConfigPlain = ["username"     : "gesellix",
-                     "password"     : "-yet-another-password-",
-                     "email"        : "tobias@gesellix.de",
-                     "serveraddress": "https://index.docker.io/v1/"]
+allprojects {
+  apply plugin: "de.gesellix.docker"
+
+  docker {
+    dockerHost = localDockerHost
+    authConfigPlain = ["username"     : "gesellix",
+                       "password"     : "-yet-another-password-",
+                       "email"        : "tobias@gesellix.de",
+                       "serveraddress": "https://index.docker.io/v1/"]
+  }
 }
 
-task buildImage(type: DockerBuildTask) {
-  imageName = "gesellix/example"
-  buildContextDirectory = file('./docker/')
-}
-
-task pushImage(type: DockerPushTask) {
-  dependsOn buildImage
-
-  repositoryName = "gesellix/example"
-  registry = "localhost:5000"
-}
-
-task pullImageOnRemoteServer(type: DockerPullTask) {
-  dependsOn pushImage
-
-  dockerHost = remoteDockerHost
-  imageName = "gesellix/example"
-  registry = "localhost:5000"
-}
-
-task stopContainerOnRemoteServer(type: DockerStopTask) {
-  dependsOn pullImageOnRemoteServer
-
-  dockerHost = remoteDockerHost
-  containerId = "a_unique_name"
-}
-
-task rmOldContainerOnRemoteServer(type: DockerRmTask) {
-  dependsOn stopContainerOnRemoteServer
-
-  dockerHost = remoteDockerHost
-  containerId = "a_unique_name"
-}
-
-task runContainerOnRemoteServer(type: DockerRunTask) {
-  dependsOn rmOldContainerOnRemoteServer
-
-  dockerHost = remoteDockerHost
-  imageName = "localhost:5000/gesellix/example"
-  containerName = "a_unique_name"
-  containerConfiguration = [
-      "ExposedPorts": ["8889/tcp": [:], "9300/tcp": [:]]]
-  hostConfiguration = [
-      "PortBindings": ["8889/tcp": [["HostPort": "8889"]]]]
-}
-
-task listContainersOnRemoteServer(type: DockerPsTask) {
-  dockerHost = remoteDockerHost
-
+task info(type: DockerInfoTask) {
   doLast {
-    println prettyPrint(toJson(containers))
+    println prettyPrint(toJson(info))
+  }
+}
+
+task version(type: DockerVersionTask) {
+  doLast {
+    println prettyPrint(toJson(version))
   }
 }
 
