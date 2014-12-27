@@ -13,15 +13,21 @@ task runContainer(type: DockerRunTask) {
   dependsOn rmContainer
   imageName = "busybox:latest"
   containerName = "exec-example"
+  containerConfiguration = [Cmd: ["ping", "127.0.0.1"]]
 }
 
 task execInContainer(type: DockerExecTask) {
   dependsOn runContainer
 
   containerId = "exec-example"
-  commandLine = "foo"
+  commandLine = 'echo "hallo" > /test.txt && cat /test.txt'
 
   doLast {
     logger.info("$result")
   }
 }
+
+task stopContainerAfterExec(type: DockerStopTask) {
+  containerId = "exec-example"
+}
+execInContainer.finalizedBy stopContainerAfterExec
