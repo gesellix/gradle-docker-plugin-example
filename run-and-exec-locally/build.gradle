@@ -1,0 +1,27 @@
+import de.gesellix.gradle.docker.tasks.*
+
+task stopContainer(type: DockerStopTask) {
+  containerId = "exec-example"
+}
+
+task rmContainer(type: DockerRmTask) {
+  dependsOn stopContainer
+  containerId = "exec-example"
+}
+
+task runContainer(type: DockerRunTask) {
+  dependsOn rmContainer
+  imageName = "busybox:latest"
+  containerName = "exec-example"
+}
+
+task execInContainer(type: DockerExecTask) {
+  dependsOn runContainer
+
+  containerId = "exec-example"
+  commandLine = "foo"
+
+  doLast {
+    logger.info("$result")
+  }
+}

@@ -1,1 +1,3 @@
-include 'build-and-run-locally', 'build-push-and-run-remotely'
+include 'build-and-run-locally',
+        'run-and-exec-locally',
+        'build-push-and-run-remotely'
