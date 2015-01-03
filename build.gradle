@@ -5,7 +5,7 @@ import static groovy.json.JsonOutput.toJson
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id "de.gesellix.docker" version "2014-12-27T20-16-13"
+  id "de.gesellix.docker" version "2015-01-03T19-48-06"
 }
 
 // only to help IntelliJ recognize the imports for the Docker*Task classes
