@@ -12,4 +12,4 @@ The root project only contains the most trivial tasks `info` and `version`. More
 
 * **build-and-run-locally** shows a simple use case with an image being build and run as a container locally.
 * **build-push-and-run-remotely** shows a more advanced use case including a private registry.
-* **run-and-exec-locally** shows how to exec commands in a running container.
+* **run-exec-and-copy-locally** shows how to exec commands in a running container and how to copy files from a container.

@@ -27,7 +27,16 @@ task execInContainer(type: DockerExecTask) {
   }
 }
 
+task copyFromContainer(type: DockerCopyTask) {
+  dependsOn execInContainer
+
+  containerId = "exec-example"
+  filename = "/test.txt"
+  targetFilename = "${buildDir}/test.txt"
+  buildDir.mkdirs()
+}
+
 task stopContainerAfterExec(type: DockerStopTask) {
   containerId = "exec-example"
 }
-execInContainer.finalizedBy stopContainerAfterExec
+copyFromContainer.finalizedBy stopContainerAfterExec
