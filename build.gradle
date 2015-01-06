@@ -5,7 +5,7 @@ import static groovy.json.JsonOutput.toJson
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id "de.gesellix.docker" version "2015-01-04T14-09-35"
+  id "de.gesellix.docker" version "2015-01-06T18-26-22"
 }
 
 // only to help IntelliJ recognize the imports for the Docker*Task classes
@@ -18,7 +18,7 @@ repositories {
 
 ext {
   localDockerHost = System.env.DOCKER_HOST.replaceAll("^tcp://", "http://")
-  remoteDockerHost = "http://172.17.42.1:2375/"
+  remoteDockerHost = "http://172.17.42.1:4243/"
 }
 
 allprojects {

@@ -44,9 +44,9 @@ task runContainerOnRemoteServer(type: DockerRunTask) {
   imageName = "localhost:5000/gesellix/example"
   containerName = "a_unique_name"
   containerConfiguration = [
-      "ExposedPorts": ["8889/tcp": [:], "9300/tcp": [:]]]
-  hostConfiguration = [
-      "PortBindings": ["8889/tcp": [["HostPort": "8889"]]]]
+      "ExposedPorts": ["8889/tcp": [:], "9300/tcp": [:]],
+      "HostConfig"  : [
+          "PortBindings": ["8889/tcp": [["HostPort": "8889"]]]]]
 }
 
 task listContainersOnRemoteServer(type: DockerPsTask) {
