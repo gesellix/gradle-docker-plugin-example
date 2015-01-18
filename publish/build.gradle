@@ -1,0 +1,10 @@
+import de.gesellix.gradle.docker.tasks.DockerPublishTask
+
+task buildAndPushImage(type: DockerPublishTask) {
+  imageName = "gesellix/example"
+  imageTag = "latest"
+  buildContextDirectory = file('./docker/')
+  targetRegistries = [
+      dev: "localhost:5000"
+  ]
+}

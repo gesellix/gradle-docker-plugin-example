@@ -1,3 +1,4 @@
 include 'build-and-run-locally',
         'run-exec-and-copy-locally',
+        'publish',
         'build-push-and-run-remotely'
