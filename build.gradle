@@ -1,11 +1,12 @@
-import de.gesellix.gradle.docker.tasks.*
+import de.gesellix.gradle.docker.tasks.DockerInfoTask
+import de.gesellix.gradle.docker.tasks.DockerVersionTask
 
 import static groovy.json.JsonOutput.prettyPrint
 import static groovy.json.JsonOutput.toJson
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id "de.gesellix.docker" version "2015-01-06T18-26-22"
+  id "de.gesellix.docker" version "2015-02-13T20-34-06"
 }
 
 // only to help IntelliJ recognize the imports for the Docker*Task classes
@@ -46,6 +47,6 @@ task version(type: DockerVersionTask) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.1'
+  gradleVersion = '2.2.1'
   distributionUrl = "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
