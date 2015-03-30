@@ -11,6 +11,7 @@ project root for detailed task configuration. Most configuration parameters are 
 The root project only contains the most trivial tasks `info` and `version`. More advanced use cases can be found in the subprojects:
 
 * **publish** shows a very convenient way to build and push an image to one or more registries.
+* **build-with-dockerignore** shows how to use the [`.dockerignore` file](https://docs.docker.com/reference/builder/#the-dockerignore-file) to exclude the Gradle build directory or other files.
 * **build-and-run-locally** shows a simple use case with an image being build and run as a container locally.
 * **build-push-and-run-remotely** shows a more advanced use case including a private registry.
 * **run-exec-and-copy-locally** shows how to exec commands in a running container and how to copy files from a container.

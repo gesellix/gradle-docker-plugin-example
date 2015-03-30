@@ -5,22 +5,26 @@ import static groovy.json.JsonOutput.prettyPrint
 import static groovy.json.JsonOutput.toJson
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
-plugins {
-  id "de.gesellix.docker" version "2015-03-24T14-17-57"
-}
-//buildscript {
-//  repositories { jcenter() }
-//  dependencies { classpath 'de.gesellix:gradle-docker-plugin:2015-03-24T14-17-57' }
+//plugins {
+//  id "de.gesellix.docker" version "2015-03-30T19-03-02"
 //}
-//apply plugin: "de.gesellix.docker"
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+    maven { url "https://plugins.gradle.org/m2/" }
+  }
+  dependencies { classpath 'de.gesellix:gradle-docker-plugin:2015-03-30T19-03-02' }
+}
+apply plugin: "de.gesellix.docker"
 
 // only to help IntelliJ recognize the imports for the Docker*Task classes
-apply plugin: 'groovy'
-repositories {
-  mavenLocal()
-  maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
-  mavenCentral()
-}
+//apply plugin: 'groovy'
+//repositories {
+//  mavenLocal()
+//  maven { url 'http://dl.bintray.com/gesellix/docker-utils' }
+//  mavenCentral()
+//}
 
 ext {
   localDockerHost = System.env.DOCKER_HOST.replaceAll("^tcp://", "http://")
@@ -28,6 +32,7 @@ ext {
 }
 
 allprojects {
+  apply plugin: 'base'
   apply plugin: "de.gesellix.docker"
 
   docker {
