@@ -1,0 +1,6 @@
+import de.gesellix.gradle.docker.tasks.incubating.DockerBuildTask
+
+task buildImage(type: DockerBuildTask) {
+  imageName = "foo"
+  buildContextDirectory = file(".")
+}
