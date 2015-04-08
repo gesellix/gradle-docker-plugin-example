@@ -1,4 +1,5 @@
 build
+ignoreddirectory
 file-to-be-ignored
 */another-file-to-be-ignored
 *.iml
