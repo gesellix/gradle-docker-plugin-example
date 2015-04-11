@@ -14,4 +14,5 @@ The root project only contains the most trivial tasks `info` and `version`. More
 * **build-with-dockerignore** shows how to use the [`.dockerignore` file](https://docs.docker.com/reference/builder/#the-dockerignore-file) to exclude the Gradle build directory or other files.
 * **build-and-run-locally** shows a simple use case with an image being build and run as a container locally.
 * **build-push-and-run-remotely** shows a more advanced use case including a private registry.
+* **push-and-pull-with-auth** shows how to use the default `~/.dockercfg` for registry authentication.
 * **run-exec-and-copy-locally** shows how to exec commands in a running container and how to copy files from a container.
