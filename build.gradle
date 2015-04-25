@@ -5,7 +5,7 @@ import static groovy.json.JsonOutput.prettyPrint
 import static groovy.json.JsonOutput.toJson
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
-plugins { id "de.gesellix.docker" version '2015-04-15T07-27-27' }
+plugins { id "de.gesellix.docker" version '2015-04-25T09-55-20' }
 
 // works with Gradle < 2.1
 //buildscript {
@@ -14,13 +14,13 @@ plugins { id "de.gesellix.docker" version '2015-04-15T07-27-27' }
 //    jcenter()
 //    maven { url "https://plugins.gradle.org/m2/" }
 //  }
-//  dependencies { classpath 'de.gesellix:gradle-docker-plugin:2015-04-15T05-29-25' }
+//  dependencies { classpath 'de.gesellix:gradle-docker-plugin:2015-04-25T07-47-29' }
 //}
 //apply plugin: "de.gesellix.docker"
 
 ext {
   localDockerHost = System.env.DOCKER_HOST
-  remoteDockerHost = "http://172.17.42.1:4243/"
+  remoteDockerHost = "http://172.17.42.1:4243"
 }
 
 allprojects {
