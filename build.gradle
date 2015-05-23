@@ -23,7 +23,7 @@ buildscript {
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.9"
-  id "de.gesellix.docker" version "2015-05-06T06-17-42"
+  id "de.gesellix.docker" version "2015-05-23T15-42-06"
 }
 
 ext {
@@ -58,6 +58,6 @@ task version(type: DockerVersionTask) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.3'
+  gradleVersion = '2.4'
   distributionUrl = "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
