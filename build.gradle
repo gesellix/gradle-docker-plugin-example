@@ -14,7 +14,7 @@ buildscript {
 // works with Gradle < 2.1
 //  dependencies {
 //    classpath 'com.github.ben-manes:gradle-versions-plugin:0.9'
-//    classpath 'de.gesellix:gradle-docker-plugin:2015-07-05T14-54-52'
+//    classpath 'de.gesellix:gradle-docker-plugin:2015-07-26T20-27-10'
 //  }
 }
 //apply plugin: 'com.github.ben-manes.versions'
@@ -23,7 +23,7 @@ buildscript {
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.11.3"
-  id "de.gesellix.docker" version "2015-07-05T16-55-10"
+  id "de.gesellix.docker" version "2015-07-26T22-23-42"
 }
 
 ext {
@@ -58,6 +58,6 @@ task version(type: DockerVersionTask) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.4'
+  gradleVersion = '2.5'
   distributionUrl = "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
