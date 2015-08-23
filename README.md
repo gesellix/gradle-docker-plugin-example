@@ -16,3 +16,4 @@ The root project only contains the most trivial tasks `info` and `version`. More
 * **build-push-and-run-remotely** shows a more advanced use case including a private registry.
 * **push-and-pull-with-auth** shows how to use the default `~/.dockercfg` for registry authentication.
 * **run-exec-and-copy-locally** shows how to exec commands in a running container and how to copy files from a container.
+* **container-lifecycle** shows how to maintain container state, similar to tools like Ansible, where you declare the desired target state.

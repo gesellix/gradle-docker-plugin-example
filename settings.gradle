@@ -3,4 +3,5 @@ include 'build-and-run-locally',
         'run-exec-and-copy-locally',
         'publish',
         'push-and-pull-with-auth',
-        'build-push-and-run-remotely'
+        'build-push-and-run-remotely',
+        'container-lifecycle'

@@ -1,0 +1,17 @@
+import de.gesellix.gradle.docker.tasks.DockerContainerTask
+
+import static de.gesellix.gradle.docker.tasks.DockerContainerTask.State.RELOADED
+
+task reloadContainer(type: DockerContainerTask) {
+  dockerHost = remoteDockerHost
+  containerName = "a_unique_name"
+  targetState = RELOADED
+
+  image = "gesellix/docker-client-testimage"
+  tag = "latest"
+  ports = ["8080:80"]
+  env = ["TMP=1"]
+  cmd = ["ping", "127.0.0.1"]
+  volumes = ["/tmp:/data:ro"]
+  extraHosts = ["dockerhost:127.0.0.1"]
+}
