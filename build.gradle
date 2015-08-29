@@ -12,10 +12,10 @@ buildscript {
     maven { url "https://plugins.gradle.org/m2/" }
   }
 // works with Gradle < 2.1
-  dependencies {
-//    classpath 'com.github.ben-manes:gradle-versions-plugin:0.9'
-//    classpath 'de.gesellix:gradle-docker-plugin:2015-08-23T08-44-49'
-  }
+//  dependencies {
+//    classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
+//    classpath 'de.gesellix:gradle-docker-plugin:2015-08-29T21-31-46'
+//  }
 }
 //apply plugin: 'com.github.ben-manes.versions'
 //apply plugin: "de.gesellix.docker"
@@ -23,11 +23,12 @@ buildscript {
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.11.3"
-  id "de.gesellix.docker" version "2015-08-23T10-43-58"
+  id "de.gesellix.docker" version "2015-08-29T23-32-12"
 }
 
 ext {
 //  localDockerHost = "unix:///var/run/docker.sock"
+//  localDockerHost = 'https://192.168.99.100:2376'
   localDockerHost = System.env.DOCKER_HOST
 //  remoteDockerHost = "http://172.17.42.1:2376"
   remoteDockerHost = 'https://192.168.99.100:2376'

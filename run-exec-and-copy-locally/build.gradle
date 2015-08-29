@@ -1,4 +1,5 @@
 import de.gesellix.gradle.docker.tasks.*
+import org.apache.commons.io.IOUtils
 
 task stopContainer(type: DockerStopTask) {
   containerId = "exec-example"
@@ -27,16 +28,26 @@ task execInContainer(type: DockerExecTask) {
   }
 }
 
-task copyFromContainer(type: DockerCopyTask) {
+task downloadArchiveFromContainer(type: DockerCopyFromContainerTask) {
   dependsOn execInContainer
 
-  containerId = "exec-example"
-  filename = "/test.txt"
-  targetFilename = "${buildDir}/test.txt"
-  buildDir.mkdirs()
+  container = "exec-example"
+  sourcePath = "/test.txt"
+}
+
+task extractSingleFile(type: DockerTask) {
+  dependsOn downloadArchiveFromContainer
+
+  doLast {
+    def fileContent = getDockerClient().extractSingleTarEntry(downloadArchiveFromContainer.content.stream as InputStream, "test.txt")
+    buildDir.mkdirs()
+    def outputStream = new FileOutputStream("${buildDir}/test.txt")
+    IOUtils.write(fileContent as byte[], outputStream)
+    IOUtils.closeQuietly(outputStream)
+  }
 }
 
 task stopContainerAfterExec(type: DockerStopTask) {
   containerId = "exec-example"
 }
-copyFromContainer.finalizedBy stopContainerAfterExec
+downloadArchiveFromContainer.finalizedBy stopContainerAfterExec
