@@ -1,6 +1,7 @@
 include 'build-and-run-locally',
         'build-with-dockerignore',
         'run-exec-and-copy-locally',
+        'run-with-data-volume',
         'publish',
         'push-and-pull-with-auth',
         'build-push-and-run-remotely',
