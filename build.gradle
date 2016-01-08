@@ -15,7 +15,7 @@ buildscript {
 // works with Gradle < 2.1
 //  dependencies {
 //    classpath 'com.github.ben-manes:gradle-versions-plugin:0.11.3'
-//    classpath 'de.gesellix:gradle-docker-plugin:2016-01-07T22-55-44'
+//    classpath 'de.gesellix:gradle-docker-plugin:2016-01-07T23-18-40'
 //  }
 }
 //apply plugin: 'com.github.ben-manes.versions'
