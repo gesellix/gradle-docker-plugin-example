@@ -15,16 +15,12 @@ buildscript {
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id "com.github.ben-manes.versions" version "0.11.3"
-  id "de.gesellix.docker" version "2016-02-08T22-29-47"
+  id "com.github.ben-manes.versions" version "0.12.0"
+  id "de.gesellix.docker" version "2016-04-08T22-14-17"
 }
 
 ext {
-//  localDockerHost = "unix:///var/run/docker.sock"
-//  localDockerHost = 'https://192.168.99.100:2376'
-  localDockerHost = System.env.DOCKER_HOST
-
-//  remoteDockerHost = "http://172.17.42.1:2376"
+  localDockerHost = System.env.DOCKER_HOST ?: "unix:///var/run/docker.sock"
   remoteDockerHost = 'https://192.168.99.100:2376'
 
   defaultCertPath = System.getProperty('docker.cert.path') ?: "${System.getProperty('user.home')}/.docker/machine/machines/default"
