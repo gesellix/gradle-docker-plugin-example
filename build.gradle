@@ -16,14 +16,7 @@ buildscript {
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.12.0"
-  id "de.gesellix.docker" version "2016-04-08T22-14-17"
-}
-
-ext {
-  localDockerHost = System.env.DOCKER_HOST ?: "unix:///var/run/docker.sock"
-  remoteDockerHost = 'https://192.168.99.100:2376'
-
-  defaultCertPath = System.getProperty('docker.cert.path') ?: "${System.getProperty('user.home')}/.docker/machine/machines/default"
+  id "de.gesellix.docker" version "2016-04-09T11-52-13"
 }
 
 allprojects {
@@ -31,9 +24,9 @@ allprojects {
   apply plugin: "de.gesellix.docker"
 
   docker {
-    dockerHost = localDockerHost
-//    dockerHost = System.getProperty('DOCKER_HOST') ?: 'https://192.168.99.100:2376'
-//    certPath = defaultCertPath
+//    dockerHost = System.env.DOCKER_HOST ?: 'unix:///var/run/docker.sock'
+//    dockerHost = System.env.DOCKER_HOST ?: 'https://192.168.99.100:2376'
+//    certPath = System.getProperty('docker.cert.path') ?: "${System.getProperty('user.home')}/.docker/machine/machines/default"
     authConfigPlain = ["username"     : "gesellix",
                        "password"     : "-yet-another-password-",
                        "email"        : "tobias@gesellix.de",
