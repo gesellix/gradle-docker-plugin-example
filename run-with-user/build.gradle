@@ -26,7 +26,7 @@ task runContainer(type: DockerRunTask) {
   imageName = "run-with-user"
   containerName = "run-with-user-example"
   containerConfiguration = [Tty: true]
-  containerConfiguration.User = "myuser"
+  containerConfiguration.User = "root"
 }
 
 task printContainerLogs(type: DockerTask) {
