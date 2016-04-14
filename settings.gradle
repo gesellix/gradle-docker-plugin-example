@@ -6,4 +6,5 @@ include 'build-and-run-locally',
     'push-and-pull-with-auth',
     'build-push-and-run-remotely',
     'container-lifecycle',
-    'issue-41'
+    'issue-41',
+    'run-with-user'

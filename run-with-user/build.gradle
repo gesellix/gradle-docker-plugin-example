@@ -1,0 +1,39 @@
+import de.gesellix.gradle.docker.tasks.*
+import org.apache.commons.io.IOUtils
+
+task rmImage(type: DockerRmiTask) {
+  imageId = "run-with-user"
+}
+
+task buildImage(type: DockerBuildTask) {
+  dependsOn rmImage
+  imageName = "run-with-user"
+  buildContextDirectory = file("./docker/")
+}
+
+task stopContainer(type: DockerStopTask) {
+  dependsOn buildImage
+  containerId = "run-with-user-example"
+}
+
+task rmContainer(type: DockerRmTask) {
+  dependsOn stopContainer
+  containerId = "run-with-user-example"
+}
+
+task runContainer(type: DockerRunTask) {
+  dependsOn rmContainer
+  imageName = "run-with-user"
+  containerName = "run-with-user-example"
+  containerConfiguration = [Tty: true]
+  containerConfiguration.User = "myuser"
+}
+
+task printContainerLogs(type: DockerTask) {
+  dependsOn runContainer
+
+  doLast {
+    def response = getDockerClient().logs("run-with-user-example")
+    logger.lifecycle IOUtils.toString(response.stream as InputStream)
+  }
+}
