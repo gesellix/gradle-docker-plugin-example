@@ -1,3 +1,4 @@
+import de.gesellix.gradle.docker.tasks.DockerCleanupTask
 import de.gesellix.gradle.docker.tasks.DockerInfoTask
 import de.gesellix.gradle.docker.tasks.DockerPingTask
 import de.gesellix.gradle.docker.tasks.DockerVersionTask
@@ -16,7 +17,7 @@ buildscript {
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.12.0"
-  id "de.gesellix.docker" version "2016-06-16T00-58-42"
+  id "de.gesellix.docker" version "2016-06-22T00-33-54"
 }
 
 allprojects {
@@ -49,6 +50,20 @@ task info(type: DockerInfoTask) {
 task version(type: DockerVersionTask) {
   doLast {
     println prettyPrint(toJson(version))
+  }
+}
+
+task cleanupStorage(type: DockerCleanupTask) {
+  shouldKeepContainer = { container ->
+    logger.warn("container : ${container}")
+//    container.Names.any { String name ->
+//      name.replaceAll("^/", "").matches(".*data.*")
+//    }
+    true
+  }
+  shouldKeepVolume = { Map volume ->
+    logger.warn("volume : ${volume}")
+    true
   }
 }
 
