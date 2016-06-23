@@ -17,7 +17,7 @@ buildscript {
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.12.0"
-  id "de.gesellix.docker" version "2016-06-22T00-33-54"
+  id "de.gesellix.docker" version "2016-06-23T21-39-11"
 }
 
 allprojects {
@@ -63,6 +63,11 @@ task cleanupStorage(type: DockerCleanupTask) {
   }
   shouldKeepVolume = { Map volume ->
     logger.warn("volume : ${volume}")
+//    def keep = volume.Name.replaceAll("^/", "").matches(".*data.*")
+//    if (keep) {
+//      logger.warn("will keep ${volume}")
+//    }
+//    return keep
     true
   }
 }
