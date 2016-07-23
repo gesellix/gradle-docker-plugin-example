@@ -12,12 +12,16 @@ buildscript {
     jcenter()
     maven { url "https://plugins.gradle.org/m2/" }
   }
+
+  dependencies {
+    classpath "de.gesellix:docker-client:2016-07-23T22-43-10"
+  }
 }
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id "com.github.ben-manes.versions" version "0.12.0"
-  id "de.gesellix.docker" version "2016-06-23T21-39-11"
+  id "com.github.ben-manes.versions" version "0.13.0"
+  id "de.gesellix.docker" version "2016-07-24T01-05-06"
 }
 
 allprojects {
@@ -73,6 +77,6 @@ task cleanupStorage(type: DockerCleanupTask) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '2.14'
+  gradleVersion = '2.14.1'
   distributionUrl = "http://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }

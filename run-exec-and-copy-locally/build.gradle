@@ -1,5 +1,5 @@
 import de.gesellix.gradle.docker.tasks.*
-import org.apache.commons.io.IOUtils
+import de.gesellix.docker.client.util.IOUtils
 
 task stopContainer(type: DockerStopTask) {
   containerId = "exec-example"
