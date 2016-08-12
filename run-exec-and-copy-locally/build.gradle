@@ -1,5 +1,5 @@
-import de.gesellix.gradle.docker.tasks.*
 import de.gesellix.docker.client.util.IOUtils
+import de.gesellix.gradle.docker.tasks.*
 
 task stopContainer(type: DockerStopTask) {
   containerId = "exec-example"
@@ -24,7 +24,7 @@ task execInContainer(type: DockerExecTask) {
   commandLine = 'echo "hallo" > /test.txt && cat /test.txt'
 
   doLast {
-    logger.info("$result")
+    logger.info("${IOUtils.copy(result.stream, System.out)}")
   }
 }
 
