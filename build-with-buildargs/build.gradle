@@ -1,0 +1,10 @@
+import de.gesellix.gradle.docker.tasks.DockerBuildTask
+
+task buildImage(type: DockerBuildTask) {
+    imageName = "buildarg-example"
+    buildContextDirectory = file(".")
+    buildParams = [
+        rm: true,
+        buildargs: [an_argument: "the value"]
+    ]
+}
