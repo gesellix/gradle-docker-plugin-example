@@ -12,7 +12,7 @@ task rmContainer(type: DockerRmTask) {
 
 task runContainer(type: DockerRunTask) {
   dependsOn rmContainer
-  imageName = "busybox:latest"
+  imageName = "alpine:edge"
   containerName = "exec-example"
   containerConfiguration = [Cmd: ["ping", "127.0.0.1"]]
 }
