@@ -1,5 +1,5 @@
 import de.gesellix.gradle.docker.tasks.*
-import de.gesellix.docker.client.util.IOUtils
+import de.gesellix.util.IOUtils
 
 task rmImage(type: DockerRmiTask) {
   imageId = "run-with-user"

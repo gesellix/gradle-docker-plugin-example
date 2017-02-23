@@ -1,4 +1,4 @@
-import de.gesellix.docker.client.util.IOUtils
+import de.gesellix.util.IOUtils
 import de.gesellix.gradle.docker.tasks.*
 
 task stopContainer(type: DockerStopTask) {
