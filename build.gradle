@@ -14,14 +14,14 @@ buildscript {
   }
 
   dependencies {
-    classpath "de.gesellix:docker-client:2017-03-18T21-28-50"
+    classpath "de.gesellix:docker-client:2017-04-02T10-20-00"
   }
 }
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.14.0"
-  id "de.gesellix.docker" version "2017-03-18T22-47-25"
+  id "de.gesellix.docker" version "2017-04-02T12-36-58"
 }
 
 allprojects {
@@ -77,6 +77,6 @@ task cleanupStorage(type: DockerCleanupTask) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '3.4.1'
+  gradleVersion = '3.5-rc-2'
   distributionType = Wrapper.DistributionType.ALL
 }

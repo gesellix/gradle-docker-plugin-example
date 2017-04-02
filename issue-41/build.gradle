@@ -8,7 +8,7 @@ docker {
 task verifyDockerVersion(type: DockerTask) {
   doFirst {
     logger.lifecycle "${getCertPath()}"
-    if (!(getDockerClient().version().content.Version =~ /^1\.10\./)) {
+    if (!(getDockerClient().version().content.Version =~ /^1\.10\./ || getDockerClient().version().content.Version =~ /^\d{2,}\.\d+\./)) {
       throw new GradleException("Requires Docker 1.10+")
     }
   }
