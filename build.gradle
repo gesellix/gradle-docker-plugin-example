@@ -21,7 +21,7 @@ buildscript {
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.14.0"
-  id "de.gesellix.docker" version "2017-04-13T22-56-12"
+  id "de.gesellix.docker" version "2017-04-13T23-16-48"
 }
 
 allprojects {
