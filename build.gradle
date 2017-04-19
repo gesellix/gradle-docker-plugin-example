@@ -14,14 +14,14 @@ buildscript {
   }
 
   dependencies {
-    classpath "de.gesellix:docker-client:2017-04-13T20-17-22"
+    classpath "de.gesellix:docker-client:2017-04-19T21-46-38"
   }
 }
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
   id "com.github.ben-manes.versions" version "0.14.0"
-  id "de.gesellix.docker" version "2017-04-13T23-16-48"
+  id "de.gesellix.docker" version "2017-04-19T23-50-32"
 }
 
 allprojects {
