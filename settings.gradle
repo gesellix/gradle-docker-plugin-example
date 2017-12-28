@@ -8,4 +8,5 @@ include 'build-and-run-locally',
     'build-push-and-run-remotely',
     'container-lifecycle',
     'issue-41',
+    'issue-64',
     'run-with-user'
