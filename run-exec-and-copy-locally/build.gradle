@@ -1,5 +1,10 @@
+import de.gesellix.gradle.docker.tasks.DockerCopyFromContainerTask
+import de.gesellix.gradle.docker.tasks.DockerExecTask
+import de.gesellix.gradle.docker.tasks.DockerRmTask
+import de.gesellix.gradle.docker.tasks.DockerRunTask
+import de.gesellix.gradle.docker.tasks.DockerStopTask
+import de.gesellix.gradle.docker.tasks.GenericDockerTask
 import de.gesellix.util.IOUtils
-import de.gesellix.gradle.docker.tasks.*
 
 task stopContainer(type: DockerStopTask) {
   containerId = "exec-example"
@@ -35,7 +40,7 @@ task downloadArchiveFromContainer(type: DockerCopyFromContainerTask) {
   sourcePath = "/test.txt"
 }
 
-task extractSingleFile(type: DockerTask) {
+task extractSingleFile(type: GenericDockerTask) {
   dependsOn downloadArchiveFromContainer
 
   doLast {

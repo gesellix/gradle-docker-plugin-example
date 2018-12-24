@@ -14,12 +14,12 @@ buildscript {
 
 apply plugin: de.gesellix.gradle.docker.DockerPlugin
 
-import de.gesellix.gradle.docker.tasks.DockerTask
+import de.gesellix.gradle.docker.tasks.GenericDockerTask
 
 //docker {
 //  dockerHost 'http://10.30.0.129:2375'
 //}
-task info(type: DockerTask) {
+task info(type: GenericDockerTask) {
   dockerHost 'http://10.30.0.129:2375'
   doLast {
     def client = getDockerClient()

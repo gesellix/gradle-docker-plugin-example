@@ -14,15 +14,15 @@ buildscript {
   }
 
   dependencies {
-    classpath "de.gesellix:docker-client:2018-01-26T21-28-05"
+    classpath "de.gesellix:docker-client:2018-12-17T14-42-14"
 //    classpath 'de.gesellix:gradle-docker-plugin:local'
   }
 }
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id "com.github.ben-manes.versions" version "0.17.0"
-  id "de.gesellix.docker" version "2018-01-30T22-14-21"
+  id "com.github.ben-manes.versions" version "0.20.0"
+  id "de.gesellix.docker" version "2018-12-23T23-42-46"
 }
 
 allprojects {
@@ -77,7 +77,7 @@ task cleanupStorage(type: DockerCleanupTask) {
   }
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '4.4.1'
+task updateWrapper(type: Wrapper) {
+  gradleVersion = '5.0'
   distributionType = Wrapper.DistributionType.ALL
 }

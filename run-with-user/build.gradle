@@ -1,4 +1,9 @@
-import de.gesellix.gradle.docker.tasks.*
+import de.gesellix.gradle.docker.tasks.DockerBuildTask
+import de.gesellix.gradle.docker.tasks.DockerRmTask
+import de.gesellix.gradle.docker.tasks.DockerRmiTask
+import de.gesellix.gradle.docker.tasks.DockerRunTask
+import de.gesellix.gradle.docker.tasks.DockerStopTask
+import de.gesellix.gradle.docker.tasks.GenericDockerTask
 import de.gesellix.util.IOUtils
 
 task rmImage(type: DockerRmiTask) {
@@ -29,7 +34,7 @@ task runContainer(type: DockerRunTask) {
   containerConfiguration.User = "root"
 }
 
-task printContainerLogs(type: DockerTask) {
+task printContainerLogs(type: GenericDockerTask) {
   dependsOn runContainer
 
   doLast {

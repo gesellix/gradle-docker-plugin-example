@@ -1,11 +1,11 @@
-import de.gesellix.gradle.docker.tasks.DockerTask
+import de.gesellix.gradle.docker.tasks.GenericDockerTask
 
 docker {
   dockerHost = System.getProperty('DOCKER_HOST') ?: 'https://192.168.99.100:2376'
   certPath = System.getProperty('docker.cert.path') ?: "${System.getProperty('user.home')}/.docker/machine/machines/default"
 }
 
-task verifyDockerVersion(type: DockerTask) {
+task verifyDockerVersion(type: GenericDockerTask) {
   doFirst {
     logger.lifecycle "${getCertPath()}"
     if (!(getDockerClient().version().content.Version =~ /^1\.10\./ || getDockerClient().version().content.Version =~ /^\d{2,}\.\d+\./)) {
