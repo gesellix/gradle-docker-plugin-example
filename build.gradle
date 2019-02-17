@@ -10,7 +10,7 @@ buildscript {
   repositories {
     mavenLocal()
     jcenter()
-    maven { url "https://plugins.gradle.org/m2/" }
+    gradlePluginPortal()
   }
 
   dependencies {
@@ -46,13 +46,13 @@ task ping(type: DockerPingTask) {
   }
 }
 
-task info(type: DockerInfoTask) {
+task dockerInfo(type: DockerInfoTask) {
   doLast {
     println prettyPrint(toJson(info))
   }
 }
 
-task version(type: DockerVersionTask) {
+task dockerVersion(type: DockerVersionTask) {
   doLast {
     println prettyPrint(toJson(version))
   }
@@ -78,6 +78,6 @@ task cleanupStorage(type: DockerCleanupTask) {
 }
 
 task updateWrapper(type: Wrapper) {
-  gradleVersion = '5.0'
+  gradleVersion = '5.2.1'
   distributionType = Wrapper.DistributionType.ALL
 }
