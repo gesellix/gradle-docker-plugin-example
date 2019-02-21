@@ -15,7 +15,7 @@ buildscript {
 
   dependencies {
     classpath "de.gesellix:docker-client:2019-04-03T08-39-45"
-//    classpath 'de.gesellix:gradle-docker-plugin:local'
+//    classpath "de.gesellix:gradle-docker-plugin:local"
   }
 }
 
@@ -26,13 +26,13 @@ plugins {
 }
 
 allprojects {
-  apply plugin: 'base'
+  apply plugin: "base"
   apply plugin: "de.gesellix.docker"
 
   docker {
-//    dockerHost = System.env.DOCKER_HOST ?: 'unix:///var/run/docker.sock'
-//    dockerHost = System.env.DOCKER_HOST ?: 'https://192.168.99.100:2376'
-//    certPath = System.getProperty('docker.cert.path') ?: "${System.getProperty('user.home')}/.docker/machine/machines/default"
+//    dockerHost = System.env.DOCKER_HOST ?: "unix:///var/run/docker.sock"
+//    dockerHost = System.env.DOCKER_HOST ?: "https://192.168.99.100:2376"
+//    certPath = System.getProperty("docker.cert.path") ?: "${System.getProperty("user.home")}/.docker/machine/machines/default"
     authConfigPlain = ["username"     : "gesellix",
                        "password"     : "-yet-another-password-",
                        "email"        : "tobias@gesellix.de",
@@ -78,6 +78,6 @@ task cleanupStorage(type: DockerCleanupTask) {
 }
 
 wrapper {
-  gradleVersion = '5.3.1'
+  gradleVersion = "5.3.1"
   distributionType = Wrapper.DistributionType.ALL
 }

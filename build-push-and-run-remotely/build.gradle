@@ -4,12 +4,12 @@ import static groovy.json.JsonOutput.prettyPrint
 import static groovy.json.JsonOutput.toJson
 
 ext {
-  remoteDockerHost = 'https://192.168.99.100:2376'
+  remoteDockerHost = "https://192.168.99.100:2376"
 }
 
 task buildImage(type: DockerBuildTask) {
   imageName = "gesellix/example"
-  buildContextDirectory = file('./docker/')
+  buildContextDirectory = file("./docker/")
 }
 
 task pushImage(type: DockerPushTask) {
