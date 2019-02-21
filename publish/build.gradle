@@ -4,7 +4,7 @@ task buildAndPushImage(type: DockerPublishTask) {
   imageName = "gesellix/example"
   imageTag = "latest"
 //  authConfigPlain = getDockerClient().readDefaultAuthConfig()
-  buildContextDirectory = file('./docker/')
+  buildContextDirectory = file("./docker/")
   targetRegistries = [
       dev: "localhost:5000"
   ]

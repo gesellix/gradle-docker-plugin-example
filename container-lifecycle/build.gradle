@@ -3,7 +3,7 @@ import de.gesellix.gradle.docker.tasks.DockerContainerTask
 import static de.gesellix.gradle.docker.tasks.DockerContainerTask.State.RELOADED
 
 task reloadContainer(type: DockerContainerTask) {
-//  dockerHost = 'https://192.168.99.100:2376'
+//  dockerHost = "https://192.168.99.100:2376"
   containerName = "a_unique_name"
   targetState = RELOADED
 

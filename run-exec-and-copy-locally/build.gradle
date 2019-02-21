@@ -26,7 +26,7 @@ task execInContainer(type: DockerExecTask) {
   dependsOn runContainer
 
   containerId = "exec-example"
-  commandLine = 'echo "hallo" > /test.txt && cat /test.txt'
+  commandLine = "echo \"hallo\" > /test.txt && cat /test.txt"
 
   doLast {
     logger.info("${IOUtils.copy(result.stream, System.out)}")
