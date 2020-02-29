@@ -14,16 +14,17 @@ buildscript {
   }
 
   dependencies {
-    classpath("de.gesellix:docker-client:2019-12-15T21-43-13")
+//    classpath("de.gesellix:gradle-docker-plugin:local")
+    classpath("de.gesellix:docker-client:2020-02-29T22-21-54")
     classpath(localGroovy())
   }
 }
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id("com.github.ben-manes.versions") version "0.27.0"
+  id("com.github.ben-manes.versions") version "0.28.0"
   id("net.ossindex.audit") version "0.4.11"
-  id("de.gesellix.docker") version "2019-12-16T09-02-32"
+  id("de.gesellix.docker") version "2020-02-29T23-43-39"
 }
 
 allprojects {
@@ -62,14 +63,14 @@ tasks {
 
   register<DockerCleanupTask>("cleanupStorage") {
     shouldKeepContainer = KotlinClosure1<Map<String, Any>, Boolean>({
-      logger.warn("container : ${this}")
+      logger.warn("container : $this")
 //    container.Names.any { String name ->
 //      name.replaceAll("^/", "").matches(".*data.*")
 //    }
       true
     })
     shouldKeepVolume = KotlinClosure1<Map<String, Any>, Boolean>({
-      logger.warn("volume : ${this}")
+      logger.warn("volume : $this")
 //    def keep = volume.Name.replaceAll("^/", "").matches(".*data.*")
 //    if (keep) {
 //      logger.warn("will keep ${volume}")
