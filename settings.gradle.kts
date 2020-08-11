@@ -1,5 +1,6 @@
 include(
         "build-and-run-locally",
+        "build-with-auth",
         "build-with-buildargs",
         "build-with-dockerignore",
         "run-exec-and-copy-locally",
