@@ -1,3 +1,4 @@
+import de.gesellix.docker.client.authentication.AuthConfig
 import de.gesellix.docker.engine.EngineResponse
 import de.gesellix.gradle.docker.tasks.DockerCleanupTask
 import de.gesellix.gradle.docker.tasks.DockerInfoTask
@@ -15,30 +16,33 @@ buildscript {
 
   dependencies {
 //    classpath("de.gesellix:gradle-docker-plugin:local")
-    classpath("de.gesellix:docker-client:2020-02-29T22-21-54")
+    classpath("de.gesellix:docker-client:2020-08-11T17-19-10")
     classpath(localGroovy())
   }
 }
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id("com.github.ben-manes.versions") version "0.28.0"
+  id("com.github.ben-manes.versions") version "0.29.0"
   id("net.ossindex.audit") version "0.4.11"
-  id("de.gesellix.docker") version "2020-02-29T23-43-39"
+  id("de.gesellix.docker") version "2020-08-11T23-24-57"
 }
 
 allprojects {
   apply(plugin = "base")
   apply(plugin = "de.gesellix.docker")
 
+//  configure<de.gesellix.gradle.docker.DockerPluginExtension> {
   docker {
     //    dockerHost = System.env.DOCKER_HOST ?: "unix:///var/run/docker.sock"
 //    dockerHost = System.env.DOCKER_HOST ?: "https://192.168.99.100:2376"
 //    certPath = System.getProperty("docker.cert.path") ?: "${System.getProperty("user.home")}/.docker/machine/machines/default"
-    authConfigPlain = mapOf("username" to "gesellix",
-        "password" to "-yet-another-password-",
-        "email" to "tobias@gesellix.de",
-        "serveraddress" to "https://index.docker.io/v1/")
+    authConfigPlain = AuthConfig().apply {
+      username = "gesellix"
+      password = "-yet-another-password-"
+      email = "tobias@gesellix.de"
+      serveraddress = "https://index.docker.io/v1/"
+    }
   }
 }
 
