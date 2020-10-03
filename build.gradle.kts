@@ -9,23 +9,22 @@ import groovy.json.JsonOutput.toJson
 
 buildscript {
   repositories {
-    mavenLocal()
     jcenter()
     gradlePluginPortal()
   }
 
   dependencies {
 //    classpath("de.gesellix:gradle-docker-plugin:local")
-    classpath("de.gesellix:docker-client:2020-08-11T17-19-10")
+    classpath("de.gesellix:docker-client:2020-10-03T12-59-57")
     classpath(localGroovy())
   }
 }
 
 // works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
 plugins {
-  id("com.github.ben-manes.versions") version "0.29.0"
+  id("com.github.ben-manes.versions") version "0.33.0"
   id("net.ossindex.audit") version "0.4.11"
-  id("de.gesellix.docker") version "2020-08-11T23-24-57"
+  id("de.gesellix.docker") version "2020-10-03T16-08-20"
 }
 
 allprojects {
@@ -86,7 +85,7 @@ tasks {
 
   wrapper {
 //    gradleVersion = "5.6.4"
-    gradleVersion = "6.6"
+    gradleVersion = "6.6.1"
     distributionType = Wrapper.DistributionType.ALL
   }
 }
