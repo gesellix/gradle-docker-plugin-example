@@ -13,8 +13,7 @@ buildscript {
   }
 
   dependencies {
-//    classpath("de.gesellix:gradle-docker-plugin:local")
-    classpath("de.gesellix:docker-client:2021-02-20T21-57-11")
+    classpath("de.gesellix:docker-client:2021-03-01T18-45-03")
     classpath(localGroovy())
   }
 }
@@ -23,7 +22,7 @@ buildscript {
 plugins {
   id("com.github.ben-manes.versions") version "0.36.0"
   id("net.ossindex.audit") version "0.4.11"
-  id("de.gesellix.docker") version "2021-02-21T11-25-35"
+  id("de.gesellix.docker") version "2021-03-01T19-18-38"
 }
 
 allprojects {
@@ -83,8 +82,7 @@ tasks {
   }
 
   wrapper {
-//    gradleVersion = "5.6.4"
-    gradleVersion = "6.8.2"
+    gradleVersion = "6.8.3"
     distributionType = Wrapper.DistributionType.ALL
   }
 }
