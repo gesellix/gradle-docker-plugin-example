@@ -50,7 +50,7 @@ tasks {
     setDockerHost(remoteDockerHost)
     imageName = "localhost:5000/gesellix/example"
     containerName = "a_unique_name"
-    containerConfiguration = mapOf(
+    containerConfiguration = mapOf<String, Any>(
         "ExposedPorts" to mapOf(
             "8889/tcp" to mapOf(),
             "9300/tcp" to mapOf<String, Any>()),
