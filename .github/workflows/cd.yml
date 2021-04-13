@@ -1,0 +1,22 @@
+---
+name: CD
+on:
+  push:
+    branches:
+      - main
+      - master
+jobs:
+  cd-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: clean build
+        run: ./gradlew clean build dockerInfo --no-daemon --info --stacktrace
+        timeout-minutes: 10
+...
