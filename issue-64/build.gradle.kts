@@ -1,5 +1,4 @@
 import de.gesellix.docker.client.DockerClientImpl
-import de.gesellix.docker.engine.OkDockerClient
 import de.gesellix.gradle.docker.tasks.GenericDockerTask
 
 buildscript {
@@ -25,7 +24,7 @@ tasks.register<GenericDockerTask>("info") {
   setDockerHost("http://10.30.0.129:2375")
   doLast {
     val client = dockerClient as DockerClientImpl
-    println((client.httpClient as OkDockerClient).dockerClientConfig.env.dockerHost)   // unix:///var/run/docker.sock
+//    println((client.httpClient as OkDockerClient).dockerClientConfig.env.dockerHost)   // unix:///var/run/docker.sock
     println(client.dockerClientConfig.env.dockerHost)              // unix:///var/run/docker.sock
     println(client.env.dockerHost)                                 // http://10.30.0.129:2375
   }
