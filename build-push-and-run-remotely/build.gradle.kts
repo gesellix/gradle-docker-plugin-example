@@ -12,55 +12,59 @@ val remoteDockerHost = "https://192.168.99.100:2376"
 
 tasks {
   val buildImage = register<DockerBuildTask>("buildImage") {
-    imageName = "gesellix/example"
+    setImageName("gesellix/example")
     setBuildContextDirectory(file("./docker/"))
   }
 
   val pushImage = register<DockerPushTask>("pushImage") {
     dependsOn(buildImage)
-    repositoryName = "gesellix/example"
-    registry = "localhost:5000"
+    setRepositoryName("gesellix/example")
+    setRegistry("localhost:5000")
   }
 
   val pullImageOnRemoteServer = register<DockerPullTask>("pullImageOnRemoteServer") {
     dependsOn(pushImage)
 
     setDockerHost(remoteDockerHost)
-    imageName = "gesellix/example"
-    registry = "localhost:5000"
+    setImageName("gesellix/example")
+    setRegistry("localhost:5000")
   }
 
   val stopContainerOnRemoteServer = register<DockerStopTask>("stopContainerOnRemoteServer") {
     dependsOn(pullImageOnRemoteServer)
 
     setDockerHost(remoteDockerHost)
-    containerId = "a_unique_name"
+    setContainerId("a_unique_name")
   }
 
   val rmOldContainerOnRemoteServer = register<DockerRmTask>("rmOldContainerOnRemoteServer") {
     dependsOn(stopContainerOnRemoteServer)
 
     setDockerHost(remoteDockerHost)
-    containerId = "a_unique_name"
+    setContainerId("a_unique_name")
   }
 
   val runContainerOnRemoteServer = register<DockerRunTask>("runContainerOnRemoteServer") {
     dependsOn(rmOldContainerOnRemoteServer)
 
     setDockerHost(remoteDockerHost)
-    imageName = "localhost:5000/gesellix/example"
-    containerName = "a_unique_name"
-    containerConfiguration = mapOf<String, Any>(
+    setImageName("localhost:5000/gesellix/example")
+    setContainerName("a_unique_name")
+    setContainerConfiguration(
+      mapOf<String, Any>(
         "ExposedPorts" to mapOf(
-            "8889/tcp" to mapOf(),
-            "9300/tcp" to mapOf<String, Any>()),
+          "8889/tcp" to mapOf(),
+          "9300/tcp" to mapOf<String, Any>()
+        ),
         "HostConfig" to mapOf(
-            "PortBindings" to mapOf(
-                "8889/tcp" to listOf(
-                    mapOf("HostPort" to "8889")
-                )
+          "PortBindings" to mapOf(
+            "8889/tcp" to listOf(
+              mapOf("HostPort" to "8889")
             )
-        ))
+          )
+        )
+      )
+    )
   }
 
   register<DockerPsTask>("listContainersOnRemoteServer") {
