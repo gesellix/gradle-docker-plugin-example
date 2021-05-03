@@ -8,12 +8,12 @@ val dockerCfgFilename = null
 
 tasks {
   register<DockerPushTask>("pushImageToPrivateRepo") {
-    repositoryName = "gesellix/private-repo"
-    authConfigPlain = dockerClient.readAuthConfig(registryHostname, dockerCfgFilename)
+    setRepositoryName("gesellix/private-repo")
+    setAuthConfigPlain(dockerClient.readAuthConfig(registryHostname, dockerCfgFilename))
   }
   register<DockerPullTask>("pullImageFromRemoteServer") {
-    imageName = "gesellix/private-repo"
-    tag = "latest"
-    authConfigPlain = dockerClient.readDefaultAuthConfig()
+    setImageName("gesellix/private-repo")
+    setTag("latest")
+    setAuthConfigPlain(dockerClient.readDefaultAuthConfig())
   }
 }

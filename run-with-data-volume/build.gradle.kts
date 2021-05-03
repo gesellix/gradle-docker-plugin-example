@@ -10,31 +10,35 @@ val volumeDir = "/tmp"
 tasks {
 
   val createDataContainer = register<DockerCreateTask>("createDataContainer") {
-    imageName = "gesellix/docker-client-testimage"
-    containerName = "data-volume"
-    containerConfiguration = mapOf(
+    setImageName("gesellix/docker-client-testimage")
+    setContainerName("data-volume")
+    setContainerConfiguration(
+      mapOf(
         "Cmd" to listOf("-"),
         "Image" to "gesellix/run-with-data-volumes",
         "HostConfig" to mapOf(
-            "Binds" to listOf("$volumeDir:/data")
+          "Binds" to listOf("$volumeDir:/data")
         )
+      )
     )
   }
   val runContainerWithDataVolume = register<DockerRunTask>("runContainerWithDataVolume") {
     dependsOn(createDataContainer)
-    imageName = "gesellix/docker-client-testimage"
-    containerName = "service-example"
-    containerConfiguration = mapOf(
+    setImageName("gesellix/docker-client-testimage")
+    setContainerName("service-example")
+    setContainerConfiguration(
+      mapOf(
         "Cmd" to listOf("true"),
         "HostConfig" to mapOf(
-            "VolumesFrom" to listOf("data-volume")
+          "VolumesFrom" to listOf("data-volume")
         )
+      )
     )
   }
 
   val inspectServiceContainer = register<DockerInspectContainerTask>("inspectServiceContainer") {
     dependsOn(runContainerWithDataVolume)
-    containerId = "service-example"
+    setContainerId("service-example")
 
     doLast {
       logger.info("${(containerInfo as EngineResponse).content}")
@@ -43,17 +47,17 @@ tasks {
 
   val stopServiceContainer = register<DockerStopTask>("stopServiceContainer") {
     dependsOn(inspectServiceContainer)
-    containerId = "service-example"
+    setContainerId("service-example")
   }
 
   val rmServiceContainer = register<DockerRmTask>("rmServiceContainer") {
     dependsOn(stopServiceContainer)
-    containerId = "service-example"
+    setContainerId("service-example")
   }
 
   val rmDataVolumeContainer = register<DockerRmTask>("rmDataVolumeContainer") {
     dependsOn(rmServiceContainer)
-    containerId = "data-volume"
+    setContainerId("service-example")
   }
 
   runContainerWithDataVolume.get().finalizedBy(rmDataVolumeContainer)
