@@ -7,6 +7,6 @@ tasks {
 
     // Forced pull to test authentication at the remote registry.
     // Registry credentials should be found in the default config.
-    setBuildParams(mutableMapOf("pull" to true))
+    setBuildParams(mutableMapOf<String, Any>("pull" to true))
   }
 }
