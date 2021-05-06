@@ -12,45 +12,45 @@ val remoteDockerHost = "https://192.168.99.100:2376"
 
 tasks {
   val buildImage = register<DockerBuildTask>("buildImage") {
-    setImageName("gesellix/example")
-    setBuildContextDirectory(file("./docker/"))
+    imageName.set("gesellix/example")
+    buildContextDirectory.set(file("./docker/"))
   }
 
   val pushImage = register<DockerPushTask>("pushImage") {
     dependsOn(buildImage)
-    setRepositoryName("gesellix/example")
-    setRegistry("localhost:5000")
+    repositoryName.set("gesellix/example")
+    registry.set("localhost:5000")
   }
 
   val pullImageOnRemoteServer = register<DockerPullTask>("pullImageOnRemoteServer") {
     dependsOn(pushImage)
 
-    setDockerHost(remoteDockerHost)
-    setImageName("gesellix/example")
-    setRegistry("localhost:5000")
+    dockerHost.set(remoteDockerHost)
+    imageName.set("gesellix/example")
+    registry.set("localhost:5000")
   }
 
   val stopContainerOnRemoteServer = register<DockerStopTask>("stopContainerOnRemoteServer") {
     dependsOn(pullImageOnRemoteServer)
 
-    setDockerHost(remoteDockerHost)
-    setContainerId("a_unique_name")
+    dockerHost.set(remoteDockerHost)
+    containerId.set("a_unique_name")
   }
 
   val rmOldContainerOnRemoteServer = register<DockerRmTask>("rmOldContainerOnRemoteServer") {
     dependsOn(stopContainerOnRemoteServer)
 
-    setDockerHost(remoteDockerHost)
-    setContainerId("a_unique_name")
+    dockerHost.set(remoteDockerHost)
+    containerId.set("a_unique_name")
   }
 
   val runContainerOnRemoteServer = register<DockerRunTask>("runContainerOnRemoteServer") {
     dependsOn(rmOldContainerOnRemoteServer)
 
-    setDockerHost(remoteDockerHost)
-    setImageName("localhost:5000/gesellix/example")
-    setContainerName("a_unique_name")
-    setContainerConfiguration(
+    dockerHost.set(remoteDockerHost)
+    imageName.set("localhost:5000/gesellix/example")
+    containerName.set("a_unique_name")
+    containerConfiguration.putAll(
       mapOf<String, Any>(
         "ExposedPorts" to mapOf(
           "8889/tcp" to mapOf(),
@@ -69,7 +69,7 @@ tasks {
 
   register<DockerPsTask>("listContainersOnRemoteServer") {
     dependsOn(runContainerOnRemoteServer)
-    setDockerHost(remoteDockerHost)
+    dockerHost.set(remoteDockerHost)
 
     doLast {
       println(prettyPrint(toJson(containers)))

@@ -34,12 +34,12 @@ allprojects {
     //    dockerHost = System.env.DOCKER_HOST ?: "unix:///var/run/docker.sock"
 //    dockerHost = System.env.DOCKER_HOST ?: "https://192.168.99.100:2376"
 //    certPath = System.getProperty("docker.cert.path") ?: "${System.getProperty("user.home")}/.docker/machine/machines/default"
-    setAuthConfigPlain(AuthConfig().apply {
+    authConfig = AuthConfig().apply {
       username = "gesellix"
       password = "-yet-another-password-"
       email = "tobias@gesellix.de"
       serveraddress = "https://index.docker.io/v1/"
-    })
+    }
   }
 }
 

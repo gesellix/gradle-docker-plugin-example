@@ -21,7 +21,7 @@ buildscript {
 //  dockerHost "http://10.30.0.129:2375"
 //}
 tasks.register<GenericDockerTask>("info") {
-  setDockerHost("http://10.30.0.129:2375")
+  dockerHost.set("http://10.30.0.129:2375")
   doLast {
     val client = dockerClient as DockerClientImpl
 //    println((client.httpClient as OkDockerClient).dockerClientConfig.env.dockerHost)   // unix:///var/run/docker.sock

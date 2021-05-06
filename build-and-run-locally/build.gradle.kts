@@ -6,28 +6,28 @@ import de.gesellix.gradle.docker.tasks.DockerStopTask
 
 tasks {
   val rmImage = register<DockerRmiTask>("rmImage") {
-    setImageId("foo")
+    imageId.set("foo")
   }
 
   val buildImage = register<DockerBuildTask>("buildImage") {
     dependsOn(rmImage)
-    setImageName("foo")
-    setBuildContextDirectory(file("./docker/"))
+    imageName.set("foo")
+    buildContextDirectory.set(file("./docker/"))
   }
 
   val stopContainer = register<DockerStopTask>("stopContainer") {
     dependsOn(buildImage)
-    setContainerId("foo")
+    containerId.set("foo")
   }
 
   val rmContainer = register<DockerRmTask>("rmContainer") {
     dependsOn(stopContainer)
-    setContainerId("foo")
+    containerId.set("foo")
   }
 
   register<DockerRunTask>("runContainer") {
     dependsOn(rmContainer)
-    setImageName("foo")
-    setContainerName("foo")
+    imageName.set("foo")
+    containerName.set("foo")
   }
 }

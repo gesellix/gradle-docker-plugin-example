@@ -12,36 +12,36 @@ import java.io.InputStream
 
 tasks {
   val stopContainer = register<DockerStopTask>("stopContainer") {
-    setContainerId("exec-example")
+    containerId.set("exec-example")
   }
   val rmContainer = register<DockerRmTask>("rmContainer") {
     dependsOn(stopContainer)
-    setContainerId("exec-example")
+    containerId.set("exec-example")
   }
   val runContainer = register<DockerRunTask>("runContainer") {
     dependsOn(rmContainer)
-    setImageName("alpine:edge")
-    setContainerName("exec-example")
-    setContainerConfiguration(mapOf("Cmd" to listOf("ping", "127.0.0.1")))
+    imageName.set("alpine:edge")
+    containerName.set("exec-example")
+    containerConfiguration.putAll(mapOf("Cmd" to listOf("ping", "127.0.0.1")))
   }
   val execInContainer = register<DockerExecTask>("execInContainer") {
     dependsOn(runContainer)
 
-    setContainerId("exec-example")
-    setCommandLine("echo \"hallo\" > /test.txt && cat /test.txt")
+    containerId.set("exec-example")
+    cmd.set("echo \"hallo\" > /test.txt && cat /test.txt")
 
     doLast {
       logger.info("${IOUtils.copy((result as EngineResponse).stream as InputStream, System.out)}")
     }
   }
   val stopContainerAfterExec = register<DockerStopTask>("stopContainerAfterExec") {
-    setContainerId("exec-example")
+    containerId.set("exec-example")
   }
   val downloadArchiveFromContainer = register<DockerCopyFromContainerTask>("downloadArchiveFromContainer") {
     dependsOn(execInContainer)
     finalizedBy(stopContainerAfterExec)
-    setContainer("exec-example")
-    setSourcePath("/test.txt")
+    container.set("exec-example")
+    sourcePath.set("/test.txt")
   }
   register<GenericDockerTask>("extractSingleFile") {
     dependsOn(downloadArchiveFromContainer)
