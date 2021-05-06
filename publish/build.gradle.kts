@@ -1,9 +1,9 @@
 import de.gesellix.gradle.docker.tasks.DockerPublishTask
 
 tasks.register<DockerPublishTask>("buildAndPushImage") {
-  setImageName("gesellix/example")
-  setImageTag("latest")
+  imageName.set("gesellix/example")
+  imageTag.set("latest")
 //  authConfig.set(dockerClient.readDefaultAuthConfig())
-  setBuildContextDirectory(file("./docker/"))
-  setTargetRegistries(mapOf("dev" to "localhost:5000"))
+  buildContextDirectory.set(file("./docker/"))
+  targetRegistries.putAll(mapOf("dev" to "localhost:5000"))
 }

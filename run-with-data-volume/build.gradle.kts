@@ -10,9 +10,9 @@ val volumeDir = "/tmp"
 tasks {
 
   val createDataContainer = register<DockerCreateTask>("createDataContainer") {
-    setImageName("gesellix/docker-client-testimage")
-    setContainerName("data-volume")
-    setContainerConfiguration(
+    imageName.set("gesellix/docker-client-testimage")
+    containerName.set("data-volume")
+    containerConfiguration.putAll(
       mapOf(
         "Cmd" to listOf("-"),
         "Image" to "gesellix/run-with-data-volumes",
@@ -24,9 +24,9 @@ tasks {
   }
   val runContainerWithDataVolume = register<DockerRunTask>("runContainerWithDataVolume") {
     dependsOn(createDataContainer)
-    setImageName("gesellix/docker-client-testimage")
-    setContainerName("service-example")
-    setContainerConfiguration(
+    imageName.set("gesellix/docker-client-testimage")
+    containerName.set("service-example")
+    containerConfiguration.putAll(
       mapOf(
         "Cmd" to listOf("true"),
         "HostConfig" to mapOf(
@@ -38,7 +38,7 @@ tasks {
 
   val inspectServiceContainer = register<DockerInspectContainerTask>("inspectServiceContainer") {
     dependsOn(runContainerWithDataVolume)
-    setContainerId("service-example")
+    containerId.set("service-example")
 
     doLast {
       logger.info("${(containerInfo as EngineResponse).content}")
@@ -47,17 +47,17 @@ tasks {
 
   val stopServiceContainer = register<DockerStopTask>("stopServiceContainer") {
     dependsOn(inspectServiceContainer)
-    setContainerId("service-example")
+    containerId.set("service-example")
   }
 
   val rmServiceContainer = register<DockerRmTask>("rmServiceContainer") {
     dependsOn(stopServiceContainer)
-    setContainerId("service-example")
+    containerId.set("service-example")
   }
 
   val rmDataVolumeContainer = register<DockerRmTask>("rmDataVolumeContainer") {
     dependsOn(rmServiceContainer)
-    setContainerId("service-example")
+    containerId.set("service-example")
   }
 
   runContainerWithDataVolume.get().finalizedBy(rmDataVolumeContainer)

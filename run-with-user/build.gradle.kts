@@ -9,26 +9,26 @@ import java.io.InputStream
 
 tasks {
   val rmImage = register<DockerRmiTask>("rmImage") {
-    setImageId("run-with-user")
+    imageId.set("run-with-user")
   }
   val buildImage = register<DockerBuildTask>("buildImage") {
     dependsOn(rmImage)
-    setImageName("run-with-user")
-    setBuildContextDirectory(file("./docker/"))
+    imageName.set("run-with-user")
+    buildContextDirectory.set(file("./docker/"))
   }
   val stopContainer = register<DockerStopTask>("stopContainer") {
     dependsOn(buildImage)
-    setContainerId("run-with-user-example")
+    containerId.set("run-with-user-example")
   }
   val rmContainer = register<DockerRmTask>("rmContainer") {
     dependsOn(stopContainer)
-    setContainerId("run-with-user-example")
+    containerId.set("run-with-user-example")
   }
   val runContainer = register<DockerRunTask>("runContainer") {
     dependsOn(rmContainer)
-    setImageName("run-with-user")
-    setContainerName("run-with-user-example")
-    setContainerConfiguration(mapOf("Tty" to true, "User" to "root"))
+    imageName.set("run-with-user")
+    containerName.set("run-with-user-example")
+    containerConfiguration.putAll(mapOf("Tty" to true, "User" to "root"))
   }
   register<GenericDockerTask>("printContainerLogs") {
     dependsOn(runContainer)
