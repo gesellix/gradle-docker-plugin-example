@@ -12,7 +12,7 @@ buildscript {
   }
 
   dependencies {
-    classpath("de.gesellix:docker-client:2021-08-07T20-46-00")
+    classpath("de.gesellix:docker-client:2021-08-08T15-26-00")
     classpath(localGroovy())
   }
 }
