@@ -1,6 +1,5 @@
 import de.gesellix.docker.client.authentication.AuthConfig
 import de.gesellix.docker.engine.EngineResponse
-import de.gesellix.gradle.docker.tasks.DockerCleanupTask
 import de.gesellix.gradle.docker.tasks.DockerInfoTask
 import de.gesellix.gradle.docker.tasks.DockerPingTask
 import de.gesellix.gradle.docker.tasks.DockerVersionTask
@@ -60,25 +59,6 @@ tasks {
     doLast {
       println(prettyPrint(toJson(info)))
     }
-  }
-
-  register<DockerCleanupTask>("cleanupStorage") {
-    shouldKeepContainer = KotlinClosure1<Map<String, Any>, Boolean>({
-      logger.warn("container : $this")
-//    container.Names.any { String name ->
-//      name.replaceAll("^/", "").matches(".*data.*")
-//    }
-      true
-    })
-    shouldKeepVolume = KotlinClosure1<Map<String, Any>, Boolean>({
-      logger.warn("volume : $this")
-//    def keep = volume.Name.replaceAll("^/", "").matches(".*data.*")
-//    if (keep) {
-//      logger.warn("will keep ${volume}")
-//    }
-//    return keep
-      true
-    })
   }
 
   wrapper {
