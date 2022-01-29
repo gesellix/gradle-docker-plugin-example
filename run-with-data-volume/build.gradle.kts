@@ -1,4 +1,5 @@
 import de.gesellix.docker.engine.EngineResponse
+import de.gesellix.docker.remote.api.HostConfig
 import de.gesellix.gradle.docker.tasks.DockerCreateTask
 import de.gesellix.gradle.docker.tasks.DockerInspectContainerTask
 import de.gesellix.gradle.docker.tasks.DockerRmTask
@@ -12,28 +13,24 @@ tasks {
   val createDataContainer = register<DockerCreateTask>("createDataContainer") {
     imageName.set("gesellix/docker-client-testimage")
     containerName.set("data-volume")
-    containerConfiguration.putAll(
-      mapOf(
-        "Cmd" to listOf("-"),
-        "Image" to "gesellix/run-with-data-volumes",
-        "HostConfig" to mapOf(
-          "Binds" to listOf("$volumeDir:/data")
-        )
-      )
-    )
+    containerConfiguration.get().apply {
+      cmd = listOf("-")
+      image = "gesellix/run-with-data-volumes"
+      hostConfig = HostConfig().apply {
+        binds = listOf("$volumeDir:/data")
+      }
+    }
   }
   val runContainerWithDataVolume = register<DockerRunTask>("runContainerWithDataVolume") {
     dependsOn(createDataContainer)
     imageName.set("gesellix/docker-client-testimage")
     containerName.set("service-example")
-    containerConfiguration.putAll(
-      mapOf(
-        "Cmd" to listOf("true"),
-        "HostConfig" to mapOf(
-          "VolumesFrom" to listOf("data-volume")
-        )
-      )
-    )
+    containerConfiguration.get().apply {
+      cmd = listOf("true")
+      hostConfig = HostConfig().apply {
+        volumesFrom = listOf("data-volume")
+      }
+    }
   }
 
   val inspectServiceContainer = register<DockerInspectContainerTask>("inspectServiceContainer") {

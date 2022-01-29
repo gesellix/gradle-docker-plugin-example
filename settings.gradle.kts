@@ -11,3 +11,11 @@ include(
   "issue-64",
   "run-with-user"
 )
+
+//pluginManagement {
+//  repositories {
+//    mavenLocal()
+//    mavenCentral()
+//    gradlePluginPortal()
+//  }
+//}

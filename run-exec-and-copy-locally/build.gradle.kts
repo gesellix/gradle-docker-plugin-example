@@ -1,12 +1,10 @@
 import de.gesellix.docker.client.container.ArchiveUtil
-import de.gesellix.docker.engine.EngineResponse
 import de.gesellix.gradle.docker.tasks.DockerCopyFromContainerTask
 import de.gesellix.gradle.docker.tasks.DockerExecTask
 import de.gesellix.gradle.docker.tasks.DockerRmTask
 import de.gesellix.gradle.docker.tasks.DockerRunTask
 import de.gesellix.gradle.docker.tasks.DockerStopTask
 import de.gesellix.gradle.docker.tasks.GenericDockerTask
-import de.gesellix.util.IOUtils
 import java.io.FileOutputStream
 import java.io.InputStream
 
@@ -22,7 +20,7 @@ tasks {
     dependsOn(rmContainer)
     imageName.set("alpine:edge")
     containerName.set("exec-example")
-    containerConfiguration.putAll(mapOf("Cmd" to listOf("ping", "127.0.0.1")))
+    containerConfiguration.get().cmd = listOf("ping", "127.0.0.1")
   }
   val execInContainer = register<DockerExecTask>("execInContainer") {
     dependsOn(runContainer)
@@ -30,9 +28,9 @@ tasks {
     containerId.set("exec-example")
     cmd.set("echo \"hallo\" > /test.txt && cat /test.txt")
 
-    doLast {
-      logger.info("${IOUtils.copy((result as EngineResponse).stream as InputStream, System.out)}")
-    }
+//    doLast {
+//      logger.info("${IOUtils.copy(result.stream, System.out)}")
+//    }
   }
   val stopContainerAfterExec = register<DockerStopTask>("stopContainerAfterExec") {
     containerId.set("exec-example")
