@@ -5,7 +5,7 @@
 
 Example project showing some use cases of the [gradle-docker-plugin](https://github.com/gesellix/gradle-docker-plugin).
 
-See the [build.gradle](https://github.com/gesellix/gradle-docker-plugin-example/blob/main/build.gradle.kts) file in the
+See the [build.gradle.kts](https://github.com/gesellix/gradle-docker-plugin-example/blob/main/build.gradle.kts) file in the
 project root for detailed task configuration. Most configuration parameters are optional.
 
 The root project only contains the most trivial tasks `info` and `version`. More advanced use cases can be found in the subprojects:

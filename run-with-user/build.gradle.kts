@@ -1,14 +1,27 @@
 import de.gesellix.gradle.docker.tasks.DockerBuildTask
+import de.gesellix.gradle.docker.tasks.DockerLogsTask
 import de.gesellix.gradle.docker.tasks.DockerRmTask
 import de.gesellix.gradle.docker.tasks.DockerRmiTask
 import de.gesellix.gradle.docker.tasks.DockerRunTask
 import de.gesellix.gradle.docker.tasks.DockerStopTask
-import de.gesellix.gradle.docker.tasks.GenericDockerTask
-import de.gesellix.util.IOUtils
-import java.io.InputStream
 
 tasks {
+  val stopContainer1 = register<DockerStopTask>("stopContainer1") {
+    containerId.set("run-with-user")
+  }
+  val rmContainer1 = register<DockerRmTask>("rmContainer1") {
+    dependsOn(stopContainer1)
+    containerId.set("run-with-user")
+  }
+  val stopContainer2 = register<DockerStopTask>("stopContainer2") {
+    containerId.set("run-with-user-example")
+  }
+  val rmContainer2 = register<DockerRmTask>("rmContainer2") {
+    dependsOn(stopContainer2)
+    containerId.set("run-with-user-example")
+  }
   val rmImage = register<DockerRmiTask>("rmImage") {
+    dependsOn(rmContainer1, rmContainer2)
     imageId.set("run-with-user")
   }
   val buildImage = register<DockerBuildTask>("buildImage") {
@@ -16,25 +29,17 @@ tasks {
     imageName.set("run-with-user")
     buildContextDirectory.set(file("./docker/"))
   }
-  val stopContainer = register<DockerStopTask>("stopContainer") {
-    dependsOn(buildImage)
-    containerId.set("run-with-user-example")
-  }
-  val rmContainer = register<DockerRmTask>("rmContainer") {
-    dependsOn(stopContainer)
-    containerId.set("run-with-user-example")
-  }
   val runContainer = register<DockerRunTask>("runContainer") {
-    dependsOn(rmContainer)
+    dependsOn(buildImage, rmContainer1, rmContainer2)
     imageName.set("run-with-user")
     containerName.set("run-with-user-example")
-    containerConfiguration.putAll(mapOf("Tty" to true, "User" to "root"))
-  }
-  register<GenericDockerTask>("printContainerLogs") {
-    dependsOn(runContainer)
-    doLast {
-      val response = dockerClient.logs("run-with-user-example")
-      logger.lifecycle(IOUtils.toString(response.stream as InputStream))
+    containerConfiguration.get().apply {
+      tty = true
+      user = "root"
     }
+  }
+  register<DockerLogsTask>("printContainerLogs") {
+    dependsOn(runContainer)
+    containerId.set("run-with-user-example")
   }
 }

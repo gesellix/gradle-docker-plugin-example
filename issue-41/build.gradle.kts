@@ -9,10 +9,10 @@ tasks.register<GenericDockerTask>("verifyDockerVersion") {
   doFirst {
     logger.lifecycle(certPath.get())
     val regexOld = """^1\.10\.""".toRegex()
-    val regexNew = """^\d{2,}\.\d+\.""".toRegex()
-    val version = (dockerClient.version().content as Map<String, Any>)["Version"] as String
+    val regexNew = """^\d{2,}\.\d+\..*""".toRegex()
+    val version = dockerClient.version().content.version ?: ""
     if (!(regexOld matches version || regexNew matches version)) {
-      throw GradleException("Requires Docker 1.10+")
+      throw GradleException("Requires Docker 1.10+, got ${version}.")
     }
   }
 }

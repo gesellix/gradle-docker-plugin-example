@@ -1,3 +1,5 @@
+import de.gesellix.docker.remote.api.HostConfig
+import de.gesellix.docker.remote.api.PortBinding
 import de.gesellix.gradle.docker.tasks.DockerBuildTask
 import de.gesellix.gradle.docker.tasks.DockerPsTask
 import de.gesellix.gradle.docker.tasks.DockerPullTask
@@ -50,21 +52,19 @@ tasks {
     dockerHost.set(remoteDockerHost)
     imageName.set("localhost:5000/gesellix/example")
     containerName.set("a_unique_name")
-    containerConfiguration.putAll(
-      mapOf<String, Any>(
-        "ExposedPorts" to mapOf(
-          "8889/tcp" to mapOf(),
-          "9300/tcp" to mapOf<String, Any>()
-        ),
-        "HostConfig" to mapOf(
-          "PortBindings" to mapOf(
-            "8889/tcp" to listOf(
-              mapOf("HostPort" to "8889")
-            )
-          )
+    containerConfiguration.get().exposedPorts = mapOf(
+      "8889/tcp" to mapOf<String, Any>(),
+      "9300/tcp" to mapOf()
+    )
+    containerConfiguration.get().hostConfig = HostConfig().apply {
+      portBindings = mapOf(
+        "8889/tcp" to listOf(
+          PortBinding().apply {
+            hostPort = "8889"
+          }
         )
       )
-    )
+    }
   }
 
   register<DockerPsTask>("listContainersOnRemoteServer") {

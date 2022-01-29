@@ -1,4 +1,4 @@
-import de.gesellix.docker.client.authentication.AuthConfig
+import de.gesellix.docker.authentication.AuthConfig
 import de.gesellix.docker.engine.EngineResponse
 import de.gesellix.gradle.docker.tasks.DockerInfoTask
 import de.gesellix.gradle.docker.tasks.DockerPingTask
@@ -21,7 +21,7 @@ buildscript {
 plugins {
   id("com.github.ben-manes.versions") version "0.41.0"
   id("net.ossindex.audit") version "0.4.11"
-  id("de.gesellix.docker") version "2021-12-18T23-58-00"
+  id("de.gesellix.docker") version "2022-01-29T20-50-00"
 }
 
 allprojects {
