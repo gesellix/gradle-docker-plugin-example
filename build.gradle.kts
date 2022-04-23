@@ -62,7 +62,8 @@ tasks {
   }
 
   wrapper {
-    gradleVersion = "7.4"
+    gradleVersion = "7.4.2"
     distributionType = Wrapper.DistributionType.BIN
+    distributionSha256Sum = "29e49b10984e585d8118b7d0bc452f944e386458df27371b49b4ac1dec4b7fda"
   }
 }
