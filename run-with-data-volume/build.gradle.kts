@@ -1,4 +1,3 @@
-import de.gesellix.docker.engine.EngineResponse
 import de.gesellix.docker.remote.api.HostConfig
 import de.gesellix.gradle.docker.tasks.DockerCreateTask
 import de.gesellix.gradle.docker.tasks.DockerInspectContainerTask
@@ -14,10 +13,10 @@ tasks {
     imageName.set("gesellix/docker-client-testimage")
     containerName.set("data-volume")
     containerConfiguration.get().apply {
-      cmd = listOf("-")
+      cmd = mutableListOf("-")
       image = "gesellix/run-with-data-volumes"
       hostConfig = HostConfig().apply {
-        binds = listOf("$volumeDir:/data")
+        binds = mutableListOf("$volumeDir:/data")
       }
     }
   }
@@ -26,9 +25,9 @@ tasks {
     imageName.set("gesellix/docker-client-testimage")
     containerName.set("service-example")
     containerConfiguration.get().apply {
-      cmd = listOf("true")
+      cmd = mutableListOf("true")
       hostConfig = HostConfig().apply {
-        volumesFrom = listOf("data-volume")
+        volumesFrom = mutableListOf("data-volume")
       }
     }
   }
@@ -38,7 +37,7 @@ tasks {
     containerId.set("service-example")
 
     doLast {
-      logger.info("${(containerInfo as EngineResponse).content}")
+      logger.info("${containerInfo.content}")
     }
   }
 

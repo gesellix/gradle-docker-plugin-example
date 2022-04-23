@@ -20,7 +20,7 @@ tasks {
     dependsOn(rmContainer)
     imageName.set("alpine:edge")
     containerName.set("exec-example")
-    containerConfiguration.get().cmd = listOf("ping", "127.0.0.1")
+    containerConfiguration.get().cmd = mutableListOf("ping", "127.0.0.1")
   }
   val execInContainer = register<DockerExecTask>("execInContainer") {
     dependsOn(runContainer)

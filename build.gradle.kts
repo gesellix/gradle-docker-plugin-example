@@ -1,18 +1,16 @@
 import de.gesellix.docker.authentication.AuthConfig
-import de.gesellix.docker.engine.EngineResponse
 import de.gesellix.gradle.docker.tasks.DockerInfoTask
 import de.gesellix.gradle.docker.tasks.DockerPingTask
 import de.gesellix.gradle.docker.tasks.DockerVersionTask
-import groovy.json.JsonOutput.prettyPrint
-import groovy.json.JsonOutput.toJson
 
 buildscript {
   repositories {
+    mavenCentral()
     gradlePluginPortal()
   }
 
   dependencies {
-    classpath("de.gesellix:docker-client:2022-02-01T12-00-00")
+    classpath("de.gesellix:docker-client:2022-04-23T13-10-00")
     classpath(localGroovy())
   }
 }
@@ -21,7 +19,7 @@ buildscript {
 plugins {
   id("com.github.ben-manes.versions") version "0.42.0"
   id("net.ossindex.audit") version "0.4.11"
-  id("de.gesellix.docker") version "2022-02-07T21-51-00"
+  id("de.gesellix.docker") version "2022-04-23T15-43-00"
 }
 
 allprojects {
@@ -45,19 +43,19 @@ allprojects {
 tasks {
   register<DockerPingTask>("ping") {
     doLast {
-      println(prettyPrint(toJson((result as EngineResponse).content)))
+      println(result.content)
     }
   }
 
   register<DockerVersionTask>("dockerVersion") {
     doLast {
-      println(prettyPrint(toJson(version)))
+      println(version.content)
     }
   }
 
   register<DockerInfoTask>("dockerInfo") {
     doLast {
-      println(prettyPrint(toJson(info)))
+      println(info.content)
     }
   }
 

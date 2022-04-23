@@ -52,13 +52,13 @@ tasks {
     dockerHost.set(remoteDockerHost)
     imageName.set("localhost:5000/gesellix/example")
     containerName.set("a_unique_name")
-    containerConfiguration.get().exposedPorts = mapOf(
+    containerConfiguration.get().exposedPorts = mutableMapOf(
       "8889/tcp" to mapOf<String, Any>(),
-      "9300/tcp" to mapOf()
+      "9300/tcp" to mapOf<String, Any>()
     )
     containerConfiguration.get().hostConfig = HostConfig().apply {
-      portBindings = mapOf(
-        "8889/tcp" to listOf(
+      portBindings = mutableMapOf(
+        "8889/tcp" to mutableListOf(
           PortBinding().apply {
             hostPort = "8889"
           }
