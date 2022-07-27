@@ -15,7 +15,10 @@ buildscript {
   }
 }
 
-// works with Gradle 2.1+, for the old configuration see http://plugins.gradle.org/plugin/de.gesellix.docker
+// Works with Gradle 2.1+.
+// For the old configuration see https://plugins.gradle.org/plugin/de.gesellix.docker
+// or use the pluginManagement in the settings.gradle.kts
+// to configure another repository.
 plugins {
   id("com.github.ben-manes.versions") version "0.42.0"
   id("net.ossindex.audit") version "0.4.11"

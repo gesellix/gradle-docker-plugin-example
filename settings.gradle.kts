@@ -14,6 +14,9 @@ include(
 
 //pluginManagement {
 //  repositories {
+//    maven {
+//      url = uri("file:///home/gesellix/dev/github/gesellix/gradle-docker-plugin/local-plugins")
+//    }
 //    mavenLocal()
 //    mavenCentral()
 //    gradlePluginPortal()
