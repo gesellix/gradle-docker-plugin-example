@@ -29,6 +29,24 @@ allprojects {
   apply(plugin = "base")
   apply(plugin = "de.gesellix.docker")
 
+//  configurations.all {
+//    resolutionStrategy {
+//      failOnVersionConflict()
+//      dependencySubstitution {
+//        all {
+//          requested.let {
+//            if (it is ModuleComponentSelector && it.group == "org.codehaus.groovy") {
+//              logger.lifecycle("substituting $it with 'org.apache.groovy:*:4.0.15'")
+//              useTarget(
+//                      "org.apache.groovy:${it.module}:4.0.15",
+//                      "Changed Maven coordinates since Groovy 4"
+//              )
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
 //  configure<de.gesellix.gradle.docker.DockerPluginExtension> {
   docker {
     //    dockerHost = System.env.DOCKER_HOST ?: "unix:///var/run/docker.sock"
@@ -63,9 +81,9 @@ tasks {
   }
 
   wrapper {
-    gradleVersion = "8.0.2"
+    gradleVersion = "8.4"
     distributionType = Wrapper.DistributionType.BIN
     // https://gradle.org/release-checksums/
-    distributionSha256Sum = "ff7bf6a86f09b9b2c40bb8f48b25fc19cf2b2664fd1d220cd7ab833ec758d0d7"
+    distributionSha256Sum = "3e1af3ae886920c3ac87f7a91f816c0c7c436f276a6eefdb3da152100fef72ae"
   }
 }
