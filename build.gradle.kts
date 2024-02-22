@@ -22,7 +22,7 @@ buildscript {
 plugins {
   id("com.github.ben-manes.versions") version "0.51.0"
   id("net.ossindex.audit") version "0.4.11"
-  id("de.gesellix.docker") version "2024-01-17T08-50-00"
+  id("de.gesellix.docker") version "2024-02-22T21-15-00"
 }
 
 allprojects {
