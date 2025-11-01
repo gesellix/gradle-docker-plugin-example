@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'zulu'
-          java-version: 8
+          java-version: '17'
       - name: clean build
         run: ./gradlew clean build dockerInfo --no-daemon --info --stacktrace
         timeout-minutes: 10
