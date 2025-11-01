@@ -6,7 +6,6 @@ import de.gesellix.gradle.docker.tasks.DockerRunTask
 import de.gesellix.gradle.docker.tasks.DockerStopTask
 import de.gesellix.gradle.docker.tasks.GenericDockerTask
 import java.io.FileOutputStream
-import java.io.InputStream
 
 tasks {
   val stopContainer = register<DockerStopTask>("stopContainer") {
@@ -45,10 +44,10 @@ tasks {
     dependsOn(downloadArchiveFromContainer)
 
     doLast {
-      val fileContent = ArchiveUtil().extractSingleTarEntry(downloadArchiveFromContainer.get().content.stream as InputStream, "test.txt")
-      buildDir.mkdirs()
-      val outputStream = FileOutputStream("$buildDir/test.txt")
-      fileContent.inputStream().copyTo(outputStream)
+      layout.buildDirectory.get().asFile.mkdirs()
+      val outputStream = FileOutputStream(layout.buildDirectory.file("test.txt").get().asFile)
+      val bytesRead: Long = ArchiveUtil().copySingleTarEntry(downloadArchiveFromContainer.get().content.content, "test.txt", outputStream)
+      logger.info("bytes read: $bytesRead")
       outputStream.close()
     }
   }
