@@ -21,9 +21,16 @@ buildscript {
 // to configure another repository.
 plugins {
   id("com.github.ben-manes.versions") version "0.53.0"
-  id("net.ossindex.audit") version "0.4.11"
+  id("org.sonatype.gradle.plugins.scan") version "3.1.4"
   id("de.gesellix.docker") version "2025-05-17T21-05-00"
 }
+
+ossIndexAudit {
+    username = System.getenv("SONATYPE_INDEX_USERNAME") ?: findProperty("sonatype.index.username")
+    password = System.getenv("SONATYPE_INDEX_PASSWORD") ?: findProperty("sonatype.index.password")
+}
+
+fun findProperty(s: String) = project.findProperty(s) as String?
 
 allprojects {
   apply(plugin = "base")
