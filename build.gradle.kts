@@ -10,7 +10,7 @@ buildscript {
   }
 
   dependencies {
-    classpath("de.gesellix:docker-client:2025-11-30T22-30-00-groovy-4")
+    classpath("de.gesellix:docker-client:2.0.0-202606131856-groovy-4")
     classpath(localGroovy())
   }
 }
@@ -22,7 +22,7 @@ buildscript {
 plugins {
   id("com.github.ben-manes.versions") version "0.54.0"
   id("org.sonatype.gradle.plugins.scan") version "3.1.5"
-  id("de.gesellix.docker") version "2025-12-01T21-21-00"
+  id("de.gesellix.docker") version "2.0.0-202606131940"
 }
 
 ossIndexAudit {
