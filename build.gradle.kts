@@ -22,7 +22,7 @@ buildscript {
 plugins {
   id("com.github.ben-manes.versions") version "0.54.0"
   id("org.sonatype.gradle.plugins.scan") version "3.1.6"
-  id("de.gesellix.docker") version "2.0.0-202606131940"
+  id("de.gesellix.docker") version "2.0.1-202606212120"
 }
 
 ossIndexAudit {
