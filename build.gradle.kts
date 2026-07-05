@@ -88,9 +88,9 @@ tasks {
   }
 
   wrapper {
-    gradleVersion = "9.5.1"
+    gradleVersion = "9.6.1"
     distributionType = Wrapper.DistributionType.BIN
     // https://gradle.org/release-checksums/
-    distributionSha256Sum = "bafc141b619ad6350fd975fc903156dd5c151998cc8b058e8c1044ab5f7b031f"
+    distributionSha256Sum = "9c0f7faeeb306cb14e4279a3e084ca6b596894089a0638e68a07c945a32c9e14"
   }
 }
