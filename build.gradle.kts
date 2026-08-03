@@ -20,7 +20,7 @@ buildscript {
 // or use the pluginManagement in the settings.gradle.kts
 // to configure another repository.
 plugins {
-  id("com.github.ben-manes.versions") version "0.56.0"
+  id("com.github.ben-manes.versions") version "0.58.0"
   id("org.sonatype.gradle.plugins.scan") version "3.1.6"
   id("de.gesellix.docker") version "2.0.202607051315"
 }
