@@ -21,7 +21,7 @@ buildscript {
 // to configure another repository.
 plugins {
   id("io.github.ben-manes.versions") version "0.61.0"
-  id("org.sonatype.gradle.plugins.scan") version "4.0.0"
+  id("org.sonatype.gradle.plugins.scan") version "4.1.0-02"
   id("de.gesellix.docker") version "2.0.202607271700"
 }
 
